@@ -16,19 +16,20 @@ class HotelHub:
         """
         self.root = root
         self.root.title("HotelHub")
+        self.root.geometry("1000x500")
         
         self.login_frame = tk.Frame(self.root)
         self.login_frame.pack(padx=10, pady=10)
-
-        tk.Label(self.login_frame, text="Username:").grid(row=0, column=0)
+        tk.Label(self.login_frame, text="LOGIN").grid(row=0, column=1)
+        tk.Label(self.login_frame, text="Username:").grid(row=1, column=0)
         self.username_entry = tk.Entry(self.login_frame)
-        self.username_entry.grid(row=0, column=1)
+        self.username_entry.grid(row=1, column=1)
 
-        tk.Label(self.login_frame, text="Password:").grid(row=1, column=0)
+        tk.Label(self.login_frame, text="Password:").grid(row=2, column=0)
         self.password_entry = tk.Entry(self.login_frame, show="*")
-        self.password_entry.grid(row=1, column=1)
+        self.password_entry.grid(row=2, column=1)
 
-        tk.Button(self.login_frame, text="Login", command=self.login).grid(row=2, columnspan=2)
+        tk.Button(self.login_frame, text="Login", command=self.login).grid(row=3, columnspan=2)
     
     def login(self):
         username = self.username_entry.get()
