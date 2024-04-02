@@ -18,5 +18,5 @@ def condb():
         CheckInDate DATE
         CheckOutDate DATE
         SpecialRequests TEXT
-    )
+    );
     """)
