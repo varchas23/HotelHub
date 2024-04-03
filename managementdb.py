@@ -7,15 +7,15 @@ def condb():
 
     # Creates table for guests with guest information
     cur.execute("""
-        CREATE TABLE Guests (
-            GuestID INT PRIMARY KEY AUTO_INCREMENT,
+        CREATE TABLE IF NOT EXISTS Guests (
+            GuestID INT PRIMARY KEY,
             Name TEXT,
             DOB DATE,
-            Address VARCHAR(255),
-            Email VARCHAR(255)
+            Address TEXT,
+            Email TEXT,
             CreditCardInfo VARCHAR(19),
             NumberOfGuests INT,
-            RoomNumber INT FOREIGN KEY REFERENCES (insert booking table),
+            RoomNumber INT,
             CheckInDate DATE,
             CheckOutDate DATE,
             SpecialRequests TEXT
@@ -24,13 +24,13 @@ def condb():
 
     # Creates table for employees
     cur.execute("""
-        CREATE TABLE Employees (
-                EmployeeID INT PRIMARY KEY AUTO_INCREMENT,
+        CREATE TABLE IF NOT EXISTS Employees (
+                EmployeeID INT PRIMARY KEY,
                 Name TEXT,
                 JoiningDate Date,
-                Username VARCHAR(255),
+                Username TEXT,
                 Password VARCHAR(20),
-                Email VARCHAR(255),
+                Email TEXT,
                 PhoneNumber VARCHAR(15),
                 Department TEXT,
                 EmergencyNumber VARCHAR(15)
@@ -39,11 +39,12 @@ def condb():
 
     # Inserts employees to Employees table
     cur.execute("""INSERT INTO 'Employees' ('Name', 'JoiningDate', 'Username', 'Password', 'Email', 'PhoneNumber', 'Department', 'EmergencyNumber') VALUES 
-                ('Larry O'Brien', '2022-10-03', 'obrien3', 'treehouse1', 'larryobrien@gmail.com', '1234567890', 'Housekeeping', '2345678901');
+                ('Larry O\'Brien', '2022-10-03', 'obrien3', 'treehouse1', 'larryobrien@gmail.com', '1234567890', 'Housekeeping', '2345678901');
                 """)
 
     # Commits changes to database
     con.commit()
 
-    # Closes the cursor
+    # Closes the cursor and connection
     cur.close()
+    con.close()
