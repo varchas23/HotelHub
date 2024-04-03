@@ -39,7 +39,7 @@ def condb():
 
     # Inserts employees to Employees table
     cur.execute("""INSERT INTO 'Employees' ('Name', 'JoiningDate', 'Username', 'Password', 'Email', 'PhoneNumber', 'Department', 'EmergencyNumber') VALUES 
-                ('Larry O\'Brien', '2022-10-03', 'obrien3', 'treehouse1', 'larryobrien@gmail.com', '1234567890', 'Housekeeping', '2345678901');
+                ('Larry Brien', '2022-10-03', 'brien3', 'treehouse1', 'larrybrien@gmail.com', '1234567890', 'Housekeeping', '2345678901');
                 """)
 
     # Commits changes to database
