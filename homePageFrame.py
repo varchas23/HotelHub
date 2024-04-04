@@ -1,4 +1,5 @@
 """
+CCT211: HotelHub - Aleksandra Kalas, Varchas Sharma
 All the functionalities for the home page
 """
 import tkinter as tk
@@ -81,7 +82,8 @@ class BookingWindow(tk.Frame):
 
         # Return to Home Page
         tk.Button(self, text="Home", 
-                  command=lambda: controller.show_frame(HomeWindow)).grid(row=9)
+                  command=lambda: 
+                  controller.show_frame(HomeWindow)).grid(row=9)
         #tk.Button(self, text="Home").pack()
     
 
@@ -93,19 +95,66 @@ class FinancialWindow(tk.Frame):
         """
         super().__init__(parent)
         tk.Label(self, text="Financial Window").pack(pady=10,padx=10)
-        tk.Button(self, text="Home", command=lambda: controller.show_frame(HomeWindow)).pack()
-        
+        tk.Button(self, text="Home", 
+                  command=lambda: controller.show_frame(HomeWindow)).pack()
 
-class StockInformationWindow(tk.Frame):
+class ToiletriesStockWindow(tk.Frame):
     """
     """
     def __init__(self, parent, controller) -> None:
         """
         """
         super().__init__(parent)
-        tk.Label(self, text="Stock Information").pack(pady=10,padx=10)
-        tk.Button(self, text="Home", command=lambda: controller.show_frame(HomeWindow)).pack()
-        #tk.Button(self, text="Home").pack()
+        tk.Label(self, text="Toiletries Stock").grid(row=0, column=0)
+        tk.Button(self, text="Home", 
+                  command=lambda: controller.show_frame(HomeWindow)).grid(row=8, column=0)
+
+class FoodStockWindow(tk.Frame):
+    """
+    """
+    def __init__(self, parent, controller) -> None:
+        """
+        """
+        super().__init__(parent)
+        tk.Label(self, text="Food Stock").grid(row=0, column=0)
+        tk.Button(self, text="Home", 
+                  command=lambda: controller.show_frame(HomeWindow)).grid(row=8, column=0)
+
+class RoomSetUpWindow(tk.Frame):
+    """
+    """
+    def __init__(self, parent, controller) -> None:
+        """
+        """
+        super().__init__(parent)
+        tk.Label(self, text="Room Set Up").grid(row=0, column=0)
+        tk.Button(self, text="Home", 
+                  command=lambda: controller.show_frame(HomeWindow)).grid(row=8, column=0)
+
+
+class StockInformationWindow(tk.Frame):
+    """
+    
+    """
+
+    def __init__(self, parent, controller) -> None:
+        """
+
+        """
+        super().__init__(parent)
+        tk.Label(self, text="Stock Information").grid(row=0, column=0)
+        
+        # Buttons to lead to other frames for each stock 
+        tk.Button(self, text="Toiletries", command=lambda:
+                   controller.show_frame(ToiletriesStockWindow)).grid(row=1,column=0)
+        tk.Button(self, text="Food", command=lambda: 
+                  controller.show_frame(FoodStockWindow)).grid(row=2,column=0) 
+        tk.Button(self, text="Room Set Up", command=lambda: 
+                  controller.show_frame(RoomSetUpWindow)).grid(row=3,column=0) 
+        
+        tk.Button(self, text="Home", command=lambda: 
+                  controller.show_frame(HomeWindow)).grid(row=4,column=0)
+
 
 class EmployeeScheduleWindow(tk.Frame):
     """
@@ -115,7 +164,8 @@ class EmployeeScheduleWindow(tk.Frame):
         """
         super().__init__(parent)
         tk.Label(self, text="Employee Schedule").pack(pady=10,padx=10)
-        tk.Button(self, text="Home", command=lambda: controller.show_frame(HomeWindow)).pack()
+        tk.Button(self, text="Home", command=lambda: 
+                  controller.show_frame(HomeWindow)).pack()
         #tk.Button(self, text="Home").pack()
 
 class EmployeeInformationWindow(tk.Frame):
@@ -126,5 +176,6 @@ class EmployeeInformationWindow(tk.Frame):
         """
         super().__init__(parent)
         tk.Label(self, text="Employee Information").pack(pady=10,padx=10)
-        tk.Button(self, text="Home", command=lambda: controller.show_frame(HomeWindow)).pack()
+        tk.Button(self, text="Home", command=lambda: 
+                  controller.show_frame(HomeWindow)).pack()
         #tk.Button(self, text="Home").pack()
