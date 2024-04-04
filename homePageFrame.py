@@ -37,20 +37,36 @@ class BookingWindow(tk.Frame):
     """
     def __init__(self, parent, controller) -> None:
         """
+        Initializer for the Booking Window. This initializer creates the look
+        of the frame with all the entries and labels. 
+
+        The information entered into each entry box will be used to create a 
+        new entry into the guest database
         """
         super().__init__(parent)
+
+        # Entries and Labels for Entering Information to Book a Room for a Guest
         tk.Label(self, text="Booking Window").grid(row=0)
+
+        # Name
         tk.Label(self, text="First Name").grid(row=1, column=0)
         first_name_entry = tk.Entry(self).grid(row=1,column=1)
         tk.Label(self, text="Last Name").grid(row=2, column=0)
         last_name_entry = tk.Entry(self).grid(row=2,column=1)
+
+        # Address
         tk.Label(self, text="Address").grid(row=3, column=0)
         address_entry = tk.Entry(self).grid(row=3,column=1)
+
+        #Credit Card Information
         tk.Label(self, text="Credit Card #").grid(row=4, column=0)
         credit_card_entry = tk.Entry(self).grid(row=4,column=1)
+
+        # Number of guests staying
         tk.Label(self, text="Guest Number").grid(row=5, column=0)
         num_guests_entry = tk.Entry(self).grid(row=5,column=1)
-        ### DURATION OF STAY
+        
+        #Duration of Stay
         tk.Label(self, text="Guest Number").grid(row=6, column=0)
         num_guests_entry = tk.Entry(self).grid(row=6,column=1)
 
@@ -59,11 +75,11 @@ class BookingWindow(tk.Frame):
         radio1 = tk.Radiobutton(self, text="Two Queens", value=1).grid(row=7, column=1)
         radio2 = tk.Radiobutton(self, text="One King", value=2).grid(row=7, column=2)
 
+        # Additional Accomodations
         tk.Label(self, text="Other Accomodations").grid(row=8, column=0)
         accomodations_entry = tk.Entry(self).grid(row=8,column=1)
 
-
-
+        # Return to Home Page
         tk.Button(self, text="Home", 
                   command=lambda: controller.show_frame(HomeWindow)).grid(row=9)
         #tk.Button(self, text="Home").pack()
