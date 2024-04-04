@@ -5,12 +5,8 @@ CCT211
 """
 import tkinter as tk
 from tkinter import messagebox
-from bookingFrame import BookingWindow
-from financialFrame import FinancialWindow
-from stockInformationFrame import StockInformationWindow
-from employeeInformation import EmployeeInformationWindow
-from employeeScheduleFrame import EmployeeScheduleWindow
-from homePageFrame import HomeWindow
+from homePageFrame import HomeWindow, BookingWindow, FinancialWindow, \
+    StockInformationWindow, EmployeeInformationWindow, EmployeeScheduleWindow
 
 class LoginWindow(tk.Frame):
         """
