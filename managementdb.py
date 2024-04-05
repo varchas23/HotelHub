@@ -100,6 +100,7 @@ class FoodStockDatabase:
         cur = con.cursor()
         cur.execute("""
         CREATE TABLE IF NOT EXISTS Stock (
+            PurchaseDate DATE,
             Toiletries INT,
             Food INT,
             RoomSetUp INT

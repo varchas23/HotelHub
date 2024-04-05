@@ -67,7 +67,7 @@ class HotelHub(tk.Tk):
         """
         Initialization function for the HotelHub application.
 
-        Creation of all frames to swap through - starting witht the Login Window. 
+        Creation of all frames to swap through - starting with the Login Window. 
         """
         super().__init__(*args, **kwargs)
         self.title("HotelHub")

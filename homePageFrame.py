@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
 import sqlite3, matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from managementdb import GuestDatabase, EmployeeDatabase
 
 class HomeWindow(tk.Frame):
@@ -177,9 +178,76 @@ class FinancialWindow(tk.Frame):
                   command=lambda: controller.show_frame(HomeWindow)).pack()
         self.con = sqlite3.connect("managementdb.db")
         self.cur = self.con.cursor()
-        self.cur.execute("SELECT datetime.now.strftime('%m', CheckInDate) AS Month, \
-                         COUNT(GuestID) AS NumberOfGuests FROM Guests GROUP BY datetime.now.strftime('%m', CheckInDate)")
-        rows = self.cur.fetchall()
+
+        self.cur.execute("SELECT strftime('%m', CheckInDate) AS Month, \
+                         COUNT(GuestID) AS GuestsNumber FROM Guests \
+                         GROUP BY strftime('%m', CheckInDate);")
+        incomingGuests = self.cur.fetchall()
+        self.monthsGuests, self.numGuests = zip(*incomingGuests)
+
+        self.cur.execute("SELECT strftime('%m', CheckInDate) AS Month, \
+                         SUM(NumberOfGuests * 80) AS Income FROM Guests \
+                         GROUP BY strftime('%m', CheckInDate);")
+        income_data = self.cur.fetchall()
+        self.months_income, self.income = zip(*income_data)
+
+        self.cur.execute("SELECT strftime('%m', PurchaseDate) AS Month, \
+                         SUM(Toiletries + Food + RoomSetUp) AS Expenditure FROM Stock \
+                         GROUP BY strftime('%m', PurchaseDate);")
+        expenditure_data = self.cur.fetchall()
+        self.months_expenditure, self.expenditure = zip(*expenditure_data)
+    
+    def displayGraph(fig1, fig2, fig3):
+        """
+        Draws the data visualizations on the Financial Window Page
+        """
+        canvasGuests = FigureCanvasTkAgg(fig1, master=FinancialWindow)
+        canvasGuests.draw()
+        canvasGuests.get_tk_widget().grid(row=0, column=0)
+
+        canvasIncome = FigureCanvasTkAgg(fig2, master=FinancialWindow())
+        canvasIncome.draw()
+        canvasIncome.get_tk_widget().grid(row=0, column=1)
+
+        canvasExpenditure = FigureCanvasTkAgg(fig3, master=FinancialWindow)
+        canvasExpenditure.draw()
+        canvasExpenditure.get_tk_widget().grid(row=1, column=0, columnspan=2)
+    
+    def plotGraph(self):
+        # Creates line graph visualization of incoming guests over a year
+        fig1 = plt.figure(figsize=(10, 5))
+        plt.plot(self.monthsGuests, self.numGuests, marker='orange', color='blue')
+        plt.title('View of Incoming Guests Over a Year')
+        plt.xlabel('Month')
+        plt.ylabel('Number of Guests')
+        plt.grid(True)
+        plt.xticks(range(1, 13))  # Assuming months are represented as integers from 1 to 12
+        plt.tight_layout()
+        plt.show()
+
+        # Creates line graph visualization of income created each month
+        fig2 = plt.figure(figsize=(10, 5))
+        plt.plot(self.months_income, self.income, marker='orange', color='green')
+        plt.title('View of Income Made Each Month')
+        plt.xlabel('Month')
+        plt.ylabel('Income ($)')
+        plt.grid(True)
+        plt.xticks(range(1, 13))  # Assuming months are represented as integers from 1 to 12
+        plt.tight_layout()
+        plt.show()
+
+        # Creates line graph visualization of purchases for stock each month
+        fig3 = plt.figure(figsize=(10, 5))
+        plt.plot(self.months_expenditure, self.expenditure, marker='orange', color='red')
+        plt.title('Money Spent on Purchases for Stock Each Month')
+        plt.xlabel('Month')
+        plt.ylabel('Expenditure ($)')
+        plt.grid(True)
+        plt.xticks(range(1, 13))  # Assuming months are represented as integers from 1 to 12
+        plt.tight_layout()
+        plt.show()
+
+        self.displayGraph(fig1, fig2, fig3)
         
 
 class ToiletriesStockWindow(tk.Frame):
