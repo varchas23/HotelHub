@@ -19,7 +19,6 @@ class LoginWindow(tk.Frame):
             super().__init__(parent)
             self.controller = controller
             tk.Label(self, text="Login Window").pack(pady=10,padx=10)
-            # tk.Button(self, text="Home", command=lambda: controller.show_frame(HomeWindow)).pack()
             tk.Label(self, text="LOGIN").pack(pady=10,padx=10)
             tk.Label(self, text="Username:").pack()
             self.username_entry = tk.Entry(self)
@@ -47,15 +46,28 @@ class LoginWindow(tk.Frame):
                 self.controller.show_frame(HomeWindow)
 
             else:
-                messagebox.showerror("Login Failed", "Invalid credentials. Please try again.")  
+                messagebox.showerror("Login Failed", "Invalid credentials.\
+                                      Please try again.")  
 
 class HotelHub(tk.Tk):
     """
-    This is the login page the HotelHub application. 
+    The application HotelHub.
+
+    In this application, managers and employees will be able to access varying 
+    functionalities.
+
+    Managers: will have access to all functionalities - Booking Window, Financial Window
+            Stock Information Window (Food Stock, Toiletries Stock, Room Set Up), 
+            Employee Information Window, and Employee Schedule Window 
+    Employees: will have acces to the following functionalities - Booking Window,
+            Stock Information Window (Food Stock, Toiletries Stock, Room Set Up), and 
+            Employee Schedule Window
     """
     def __init__(self, *args, **kwargs):
         """
-        Initialization function for the 
+        Initialization function for the HotelHub application.
+
+        Creation of all frames to swap through - starting witht the Login Window. 
         """
         super().__init__(*args, **kwargs)
         self.title("HotelHub")
@@ -74,19 +86,12 @@ class HotelHub(tk.Tk):
             frame.grid(row=0, column=0, sticky="nsew")
         
         self.show_frame(LoginWindow)
-        #tk.Button(self, text="Login", command=self.show_frame(LoginWindow)).pack()
-        """tk.Label(self, text="LOGIN").pack(pady=10,padx=10)
-        tk.Label(self, text="Username:").pack()
-        self.username_entry = tk.Entry(self)
-        self.username_entry.pack()
-
-        tk.Label(self, text="Password:").pack()
-        self.password_entry = tk.Entry(self, show="*")
-        self.password_entry.pack()"""
 
         
     def show_frame(self, page_name):
-        '''Show a frame for the given page name'''
+        """
+        Function to display the page which is given to the users screen. 
+        """
         frame = self.frames[page_name]
         frame.tkraise()
 

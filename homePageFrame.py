@@ -177,7 +177,8 @@ class ToiletriesStockWindow(tk.Frame):
         tk.Label(self, text="Toiletries Stock").pack()
         tk.Button(self, text="Home", 
                   command=lambda: controller.show_frame(HomeWindow)).pack()
-        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ), show='headings')
+        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ), 
+                                 show='headings')
         self.tree.column("#1", anchor=tk.CENTER)
         self.tree.heading("#1", text="Hotel Level")
         self.tree.column("#2", anchor=tk.CENTER)
@@ -306,7 +307,8 @@ class EmployeeInformationWindow(tk.Frame):
         self.connect() 
         
         # Creating the table employee information to display
-        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8"), show='headings')
+        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4", "c5", 
+                                               "c6", "c7", "c8"), show='headings')
         self.tree.column("#1", anchor=tk.CENTER)
         self.tree.heading("#1", text="Name")
         self.tree.column("#2", anchor=tk.CENTER)
