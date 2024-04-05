@@ -7,7 +7,7 @@ from tkinter import ttk
 from datetime import datetime
 import sqlite3, matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from managementdb import GuestDatabase, EmployeeDatabase
+from managementdb import GuestDatabase, EmployeeDatabase, FoodStockDatabase
 
 class HomeWindow(tk.Frame):
     """
@@ -176,6 +176,8 @@ class FinancialWindow(tk.Frame):
         tk.Label(self, text="Financial Window").pack(pady=10,padx=10)
         tk.Button(self, text="Home", 
                   command=lambda: controller.show_frame(HomeWindow)).pack()
+        
+        self.connect()
         self.con = sqlite3.connect("managementdb.db")
         self.cur = self.con.cursor()
 
@@ -196,6 +198,17 @@ class FinancialWindow(tk.Frame):
                          GROUP BY strftime('%m', PurchaseDate);")
         expenditure_data = self.cur.fetchall()
         self.months_expenditure, self.expenditure = zip(*expenditure_data)
+        self.con.close()
+    
+    def connect(self):
+        """
+        """
+        db = FoodStockDatabase()
+        
+        #managementdb.condb()
+        con1 = sqlite3.connect("managementdb.db")
+        cur1 = con1.cursor()
+        con1.close()
     
     def displayGraph(fig1, fig2, fig3):
         """
