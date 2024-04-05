@@ -4,7 +4,8 @@ All the functionalities for the home page
 """
 import tkinter as tk
 from tkinter import ttk
-import sqlite3
+from datetime import datetime
+import sqlite3, matplotlib.pyplot as plt
 from managementdb import GuestDatabase, EmployeeDatabase
 
 class HomeWindow(tk.Frame):
@@ -174,6 +175,11 @@ class FinancialWindow(tk.Frame):
         tk.Label(self, text="Financial Window").pack(pady=10,padx=10)
         tk.Button(self, text="Home", 
                   command=lambda: controller.show_frame(HomeWindow)).pack()
+        self.con = sqlite3.connect("managementdb.db")
+        self.cur = self.con.cursor()
+        self.cur.execute("SELECT datetime.now.strftime('%m', CheckInDate) AS Month, \
+                         COUNT(GuestID) AS NumberOfGuests FROM Guests GROUP BY datetime.now.strftime('%m', CheckInDate)")
+        rows = self.cur.fetchall()
         
 
 class ToiletriesStockWindow(tk.Frame):
