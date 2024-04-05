@@ -3,6 +3,9 @@ CCT211: HotelHub - Aleksandra Kalas, Varchas Sharma
 All the functionalities for the home page
 """
 import tkinter as tk
+from tkinter import ttk
+import sqlite3
+import managementdb
 
 class HomeWindow(tk.Frame):
     """
@@ -97,6 +100,7 @@ class FinancialWindow(tk.Frame):
         tk.Label(self, text="Financial Window").pack(pady=10,padx=10)
         tk.Button(self, text="Home", 
                   command=lambda: controller.show_frame(HomeWindow)).pack()
+        
 
 class ToiletriesStockWindow(tk.Frame):
     """
@@ -105,9 +109,21 @@ class ToiletriesStockWindow(tk.Frame):
         """
         """
         super().__init__(parent)
-        tk.Label(self, text="Toiletries Stock").grid(row=0, column=0)
+        tk.Label(self, text="Toiletries Stock").pack()
         tk.Button(self, text="Home", 
                   command=lambda: controller.show_frame(HomeWindow)).grid(row=8, column=0)
+        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ), show='headings')
+        self.tree.column("#1", anchor=tk.CENTER)
+        self.tree.heading("#1", text="Hotel Level")
+        self.tree.column("#2", anchor=tk.CENTER)
+        self.tree.heading("#2", text="Public Washrooms")
+        self.tree.column("#3", anchor=tk.CENTER)
+        self.tree.heading("#3", text="Hotel Rooms")
+        self.tree.column("#4", anchor=tk.CENTER)
+        self.tree.heading("#4", text="Maids Room")
+        self.tree.column("#5", anchor=tk.CENTER)
+        self.tree.heading("#5", text="Staff Room")
+        self.tree.pack()
 
 class FoodStockWindow(tk.Frame):
     """
@@ -116,9 +132,24 @@ class FoodStockWindow(tk.Frame):
         """
         """
         super().__init__(parent)
-        tk.Label(self, text="Food Stock").grid(row=0, column=0)
+        tk.Label(self, text="Food Stock").pack()
         tk.Button(self, text="Home", 
-                  command=lambda: controller.show_frame(HomeWindow)).grid(row=8, column=0)
+                  command=lambda: controller.show_frame(HomeWindow)).pack()
+        
+        # Setting up table for information about food stock database
+        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ), 
+                                 show='headings')
+        self.tree.column("#1", anchor=tk.CENTER)
+        self.tree.heading("#1", text="Hotel Level")
+        self.tree.column("#2", anchor=tk.CENTER)
+        self.tree.heading("#2", text="Restaurant Breakfast Food")
+        self.tree.column("#3", anchor=tk.CENTER)
+        self.tree.heading("#3", text="Restaurant Lunch Food")
+        self.tree.column("#4", anchor=tk.CENTER)
+        self.tree.heading("#4", text="Restaurant Dinner Food")
+        self.tree.column("#5", anchor=tk.CENTER)
+        self.tree.heading("#5", text="Mini Fridge Snacks")
+        self.tree.pack()
 
 class RoomSetUpWindow(tk.Frame):
     """
@@ -127,14 +158,29 @@ class RoomSetUpWindow(tk.Frame):
         """
         """
         super().__init__(parent)
-        tk.Label(self, text="Room Set Up").grid(row=0, column=0)
+        tk.Label(self, text="Room Set Up").pack()
         tk.Button(self, text="Home", 
                   command=lambda: controller.show_frame(HomeWindow)).grid(row=8, column=0)
+        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ), show='headings')
+        self.tree.column("#1", anchor=tk.CENTER)
+        self.tree.heading("#1", text="Hotel Level")
+        self.tree.column("#2", anchor=tk.CENTER)
+        self.tree.heading("#2", text="Bedding")
+        self.tree.column("#3", anchor=tk.CENTER)
+        self.tree.heading("#3", text="Washroom")
+        self.tree.column("#4", anchor=tk.CENTER)
+        self.tree.heading("#4", text="Carpet Clean")
+        self.tree.column("#5", anchor=tk.CENTER)
+        self.tree.heading("#5", text="Staff Room")
+        self.tree.pack()
 
 
 class StockInformationWindow(tk.Frame):
     """
-    
+    Creates the stock information window for HotelHub. From this window, the manager
+    and the employees should be able to view what stock is available on each floor.
+    When there is a low level of stock on a floor the level will be highlighted to 
+    indicate to workers that is re-stock required in that area. 
     """
 
     def __init__(self, parent, controller) -> None:
@@ -178,4 +224,45 @@ class EmployeeInformationWindow(tk.Frame):
         tk.Label(self, text="Employee Information").pack(pady=10,padx=10)
         tk.Button(self, text="Home", command=lambda: 
                   controller.show_frame(HomeWindow)).pack()
-        #tk.Button(self, text="Home").pack()
+        
+        self.connect() 
+        
+        # Creating the table employee information to display
+        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8"), show='headings')
+        self.tree.column("#1", anchor=tk.CENTER)
+        self.tree.heading("#1", text="Name")
+        self.tree.column("#2", anchor=tk.CENTER)
+        self.tree.heading("#2", text="Joining Date")
+        self.tree.column("#3", anchor=tk.CENTER)
+        self.tree.heading("#3", text="Username")
+        self.tree.column("#4", anchor=tk.CENTER)
+        self.tree.heading("#4", text="Password")
+        self.tree.column("#5", anchor=tk.CENTER)
+        self.tree.heading("#5", text="Email")
+        self.tree.column("#6", anchor=tk.CENTER)
+        self.tree.heading("#6", text="PhoneNumber")
+        self.tree.column("#7", anchor=tk.CENTER)
+        self.tree.heading("#7", text="Department")
+        self.tree.column("#8", anchor=tk.CENTER)
+        self.tree.heading("#8", text="Emergency Number")
+        self.tree.pack()
+        button1 = tk.Button(text="Display data", command=self.View)
+        button1.pack(pady=10)
+
+    def connect(self):
+        managementdb.condb()
+        con1 = sqlite3.connect("managementdb.db")
+        cur1 = con1.cursor()
+        con1.close()
+
+    def View(self):
+        con1 = sqlite3.connect("/Users/aleksandrakalas/Desktop/HotelHub/managementdb.db")
+        cur1 = con1.cursor()
+        cur1.execute("SELECT * FROM Employees")
+        rows = cur1.fetchall()    
+        for row in rows:
+            print(row) 
+            self.tree.insert("", tk.END, values=row)           
+        con1.close()
+    # connect to the database
+    

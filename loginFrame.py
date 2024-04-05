@@ -5,7 +5,10 @@ CCT211
 """
 import tkinter as tk
 from tkinter import messagebox
-from homePageFrame import HomeWindow, BookingWindow, FinancialWindow, StockInformationWindow, EmployeeInformationWindow, EmployeeScheduleWindow
+from homePageFrame import HomeWindow, BookingWindow, FinancialWindow, \
+    StockInformationWindow, EmployeeInformationWindow, EmployeeScheduleWindow, \
+        FoodStockWindow, RoomSetUpWindow, ToiletriesStockWindow
+    
 
 class LoginWindow(tk.Frame):
         """
@@ -62,7 +65,10 @@ class HotelHub(tk.Tk):
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
-        for F in (HomeWindow, BookingWindow, LoginWindow, FinancialWindow, StockInformationWindow, EmployeeInformationWindow, EmployeeScheduleWindow):
+        for F in (HomeWindow, BookingWindow, LoginWindow, FinancialWindow, 
+                  StockInformationWindow, EmployeeInformationWindow, 
+                  EmployeeScheduleWindow, FoodStockWindow, ToiletriesStockWindow,
+                    RoomSetUpWindow ):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
