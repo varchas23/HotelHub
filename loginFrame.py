@@ -7,7 +7,7 @@ import tkinter as tk
 from tkinter import messagebox
 from homePageFrame import HomeWindow, BookingWindow, FinancialWindow, \
     StockInformationWindow, EmployeeInformationWindow, EmployeeScheduleWindow, \
-        FoodStockWindow, RoomSetUpWindow, ToiletriesStockWindow
+        FoodStockWindow, RoomSetUpWindow, ToiletriesStockWindow, EmployeeHomeWindow
     
 
 class LoginWindow(tk.Frame):
@@ -43,7 +43,7 @@ class LoginWindow(tk.Frame):
             elif username == "employee" and password == "1234":
                 messagebox.showinfo("Login Success", "Welcome, Employee!")
                 # Make call for employee home page
-                self.controller.show_frame(HomeWindow)
+                self.controller.show_frame(EmployeeHomeWindow)
 
             else:
                 messagebox.showerror("Login Failed", "Invalid credentials.\
@@ -80,7 +80,7 @@ class HotelHub(tk.Tk):
         for F in (HomeWindow, BookingWindow, LoginWindow, FinancialWindow, 
                   StockInformationWindow, EmployeeInformationWindow, 
                   EmployeeScheduleWindow, FoodStockWindow, ToiletriesStockWindow,
-                    RoomSetUpWindow ):
+                    RoomSetUpWindow, EmployeeHomeWindow ):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")

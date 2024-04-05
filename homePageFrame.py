@@ -32,6 +32,21 @@ class HomeWindow(tk.Frame):
                   command=lambda: controller.show_frame(EmployeeInformationWindow)).pack()
         tk.Button(self, text="Employee Schedule", font= ('Helvetica 20 bold italic'), 
                   command=lambda: controller.show_frame(EmployeeScheduleWindow)).pack()
+        
+class EmployeeHomeWindow(tk.Frame):
+    def __init__(self, parent, controller):
+        """ 
+        
+        """
+        super().__init__(parent)
+        tk.Label(self, text="Home Page").pack(pady=10, padx=10)
+
+        tk.Button(self, text="Book a Room", font= ('Helvetica 20 bold italic'), 
+                  command=lambda: controller.show_frame(BookingWindow)).pack()
+        tk.Button(self, text="Stock Information", font= ('Helvetica 20 bold italic'), 
+                  command=lambda: controller.show_frame(StockInformationWindow)).pack()
+        tk.Button(self, text="Employee Schedule", font= ('Helvetica 20 bold italic'), 
+                  command=lambda: controller.show_frame(EmployeeScheduleWindow)).pack()
 
 class BookingWindow(tk.Frame):
     """
