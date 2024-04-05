@@ -111,7 +111,7 @@ class ToiletriesStockWindow(tk.Frame):
         super().__init__(parent)
         tk.Label(self, text="Toiletries Stock").pack()
         tk.Button(self, text="Home", 
-                  command=lambda: controller.show_frame(HomeWindow)).grid(row=8, column=0)
+                  command=lambda: controller.show_frame(HomeWindow)).pack()
         self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ), show='headings')
         self.tree.column("#1", anchor=tk.CENTER)
         self.tree.heading("#1", text="Hotel Level")
@@ -160,7 +160,7 @@ class RoomSetUpWindow(tk.Frame):
         super().__init__(parent)
         tk.Label(self, text="Room Set Up").pack()
         tk.Button(self, text="Home", 
-                  command=lambda: controller.show_frame(HomeWindow)).grid(row=8, column=0)
+                  command=lambda: controller.show_frame(HomeWindow)).pack()
         self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ), show='headings')
         self.tree.column("#1", anchor=tk.CENTER)
         self.tree.heading("#1", text="Hotel Level")
