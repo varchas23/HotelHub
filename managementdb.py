@@ -73,6 +73,26 @@ class EmployeeDatabase:
         self.cur.close()
         self.con.close()
 
+class EmployeeSchedule:
+    def __init__(self) -> None:
+        con = sqlite3.connect("managementdb.db")
+        cur = con.cursor()
+        # Creates table for schedule of employees
+        cur.execute("""
+        CREATE TABLE IF NOT EXISTS EmployeeSchedule (
+            Id INTEGER PRIMARY KEY,
+            Name INTEGER,
+            WorkDay TEXT,
+            FOREIGN KEY (Name) REFERENCES Employees(Name)
+        );
+        """)
+        cur.execute("INSERT INTO 'EmployeeSchedule' ('Name', 'WorkDay') VALUES \
+                    ('Larry Brien', 'Monday');")
+        # Commits changes to database
+        con.commit()
+        # Closes the cursor and connection
+        cur.close()
+        con.close()
     
 class FoodStockDatabase:
     def __init__(self) -> None:

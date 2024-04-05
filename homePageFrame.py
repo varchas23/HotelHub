@@ -304,8 +304,31 @@ class EmployeeScheduleWindow(tk.Frame):
         """
         super().__init__(parent)
         tk.Label(self, text="Employee Schedule").pack(pady=10,padx=10)
-        tk.Button(self, text="Home", command=lambda: 
+        tk.Button(self, text="Home", command=lambda:
                   controller.show_frame(HomeWindow)).pack()
+        self.con = sqlite3.connect("managementdb.db")
+        self.cur = self.con.cursor()
+   
+    def getData(self):
+        self.cur.execute("SELECT Name, WorkDay FROM EmployeeSchedule")
+        data = self.cur.fetchall()
+        self.con.close()
+        return data
+
+    def showSchedule(self):
+        days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+        for i, day in enumerate(days):
+            tk.Label(self, text=day, padx=10, pady=10, borderwidth=1).grid(row=0, column=i, sticky="ew")
+
+        schedule = {day: [] for day in days}
+        for workDay, name in self.getData():
+            schedule[workDay].append(name)
+
+        for i, day in enumerate(days):
+            names = schedule.get(day, [])
+            for j, name in enumerate(names, start=1):
+                tk.Label(self, text=name, padx=5, pady=5, borderwidth=1).grid(row=j, column=i, sticky="ew")
+
 
 class EmployeeInformationWindow(tk.Frame):
     """
