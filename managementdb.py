@@ -47,27 +47,31 @@ class EmployeeDatabase:
         );
         """)
 
-        self.cur.execute("""INSERT INTO 'Employees' ('Name', 'JoiningDate', 'Username', 'Password', 'Email', 'PhoneNumber', 'Department', 'EmergencyNumber') VALUES
-                ('Larry Brien', '2022-10-03', 'brien3', 'treehouse1', 'larrybrien@gmail.com', '1234567890', 'Housekeeping', '2345678901');
-                """)
+        # Insert many employees into the employee data base at once
+        employees = [('01', 'Larry Brien', '2022-10-03', 'brien3', 'treehouse1', 
+                      'larrybrien@gmail.com', '1234567890', 'Housekeeping', '2345678901'),
+        ('02', 'Stacy Ryan', '2023-10-02', 'ryan4', 'pink34', 'stacyryan@gmail.com', 
+         '1234567890', 'Frontdesk', '2945648901'), 
+        ('03', 'Joseph Adnan', '2023-10-02', 'adnan3', 'cats46', 'josephadnan@gmail.com',
+          '1234567890', 'Manager', '2945648231')]
+        
+        for e in employees:
+            self.cur.execute("SELECT * FROM Employees WHERE EmployeeID=?", (e[0],))
+            entry = self.cur.fetchone()
 
+            if not entry:
+                self.cur.execute("INSERT INTO Employees ('EmployeeID', 'Name', \
+                                 'JoiningDate', 'Username', 'Password', 'Email',\
+                                   'PhoneNumber', 'Department', 'EmergencyNumber') \
+                                 VALUES  (?, ?, ?, ?, ?,  ?, ?, ?, ?)", (e[0], e[1], e[2],
+                                    e[3], e[4], e[5], e[6], e[7], e[8]))
+            self.con.commit()
+ 
         # Commits changes to database
         self.con.commit()
         # Closes the cursor and connection
         self.cur.close()
         self.con.close()
-    
-    """def insert(self, name, joindate, username, password, email, phonenumber, 
-               department, emergencynum,):
-        self.cur.execute("SELECT * FROM Employees WHERE Name=?", (name,))
-        entry = self.cur.fetchone()
-
-        if not entry:
-            self.cur.execute("INSERT INTO Employees ('Name', 'JoiningDate', \
-                             'Username', 'Password', 'Email', 'PhoneNumber', \
-                             'Department', 'EmergencyNumber') VALUES (?, '?', ?, ?, ?, \
-                             ?, ?, ?)", (name, joindate, username, password, email, 
-                                         phonenumber, department, emergencynum) )"""
 
     
 class FoodStockDatabase:
