@@ -73,7 +73,8 @@ class HotelHub(tk.Tk):
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
         
-        tk.Button(self, text="Login", command=self.show_frame(LoginWindow)).pack()
+        self.show_frame(LoginWindow)
+        #tk.Button(self, text="Login", command=self.show_frame(LoginWindow)).pack()
         """tk.Label(self, text="LOGIN").pack(pady=10,padx=10)
         tk.Label(self, text="Username:").pack()
         self.username_entry = tk.Entry(self)

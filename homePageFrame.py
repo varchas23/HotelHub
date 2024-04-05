@@ -5,7 +5,7 @@ All the functionalities for the home page
 import tkinter as tk
 from tkinter import ttk
 import sqlite3
-import managementdb
+from managementdb import GuestDatabase, EmployeeDatabase
 
 class HomeWindow(tk.Frame):
     """
@@ -92,6 +92,9 @@ class BookingWindow(tk.Frame):
 
 class FinancialWindow(tk.Frame):
     """
+    Creates the financial window for HotelHub. From this window, the manager
+    and will be able to view the amount of money the hotel is making through
+    a line.
     """
     def __init__(self, parent, controller) -> None:
         """
@@ -104,6 +107,12 @@ class FinancialWindow(tk.Frame):
 
 class ToiletriesStockWindow(tk.Frame):
     """
+    Creates the toiletries stock information window for HotelHub. From this window, 
+    the manager and employees will be able to view the toiletry stock levels of the public
+    washrooms, hotel rooms, maids room and staff room of the hotel.
+
+    If a level needs to be restocked then the label for the level will turn red to
+    indicate that there is restock required. 
     """
     def __init__(self, parent, controller) -> None:
         """
@@ -127,6 +136,12 @@ class ToiletriesStockWindow(tk.Frame):
 
 class FoodStockWindow(tk.Frame):
     """
+    Creates the food stock information window for HotelHub. From this window, 
+    the manager and employees will be able to view the food stock levels of the 
+    restaurant breakfast, restaurant lunch, restaurant dinner, and mini fridge snacks
+
+    If a level needs to be restocked then the label for the level will turn red to
+    indicate that there is restock required. 
     """
     def __init__(self, parent, controller) -> None:
         """
@@ -153,6 +168,12 @@ class FoodStockWindow(tk.Frame):
 
 class RoomSetUpWindow(tk.Frame):
     """
+    Creates the room set up information window for HotelHub. From this window, 
+    the manager and employees will be able to view the rooms which need to be setup on
+    various levels such as bedding, washrooms, carpet cleaning, and staff room cleaning.
+
+    If a level needs to be restocked then the label for the level will turn red to
+    indicate that there is restock required. 
     """
     def __init__(self, parent, controller) -> None:
         """
@@ -161,7 +182,8 @@ class RoomSetUpWindow(tk.Frame):
         tk.Label(self, text="Room Set Up").pack()
         tk.Button(self, text="Home", 
                   command=lambda: controller.show_frame(HomeWindow)).pack()
-        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ), show='headings')
+        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ),
+                                  show='headings')
         self.tree.column("#1", anchor=tk.CENTER)
         self.tree.heading("#1", text="Hotel Level")
         self.tree.column("#2", anchor=tk.CENTER)
@@ -221,6 +243,7 @@ class EmployeeInformationWindow(tk.Frame):
         """
         """
         super().__init__(parent)
+
         tk.Label(self, text="Employee Information").pack(pady=10,padx=10)
         tk.Button(self, text="Home", command=lambda: 
                   controller.show_frame(HomeWindow)).pack()
@@ -246,16 +269,23 @@ class EmployeeInformationWindow(tk.Frame):
         self.tree.column("#8", anchor=tk.CENTER)
         self.tree.heading("#8", text="Emergency Number")
         self.tree.pack()
-        button1 = tk.Button(text="Display data", command=self.View)
-        button1.pack(pady=10)
+       # button1 = tk.Button(text="Display data", command=self.View)
+       # button1.pack(pady=10)
+        self.View()
 
     def connect(self):
-        managementdb.condb()
+        """
+        """
+        db = EmployeeDatabase()
+        
+        #managementdb.condb()
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
         con1.close()
 
     def View(self):
+        """
+        """
         con1 = sqlite3.connect("/Users/aleksandrakalas/Desktop/HotelHub/managementdb.db")
         cur1 = con1.cursor()
         cur1.execute("SELECT * FROM Employees")
