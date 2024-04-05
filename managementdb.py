@@ -22,6 +22,12 @@ class GuestDatabase:
         );
         """)
 
+        # Inserts guest to database table
+        cur.execute("""
+        INSERT INTO Guests ('Name', 'Address', 'CreditCardInfo', 'NumberOfGuests', 'RoomNumber', 'BedSelection', 'CheckInDate', 'CheckOutDate') VALUES \
+                    ('Kobe Bryant', '333 Stonehenge Way', '4510-2430-2098-0000', 2, 1, '2 Queen', '2008-11-11', '2008-11-14')
+        """)
+
         # Commits changes to database
         con.commit()
         # Closes the cursor and connection
@@ -100,6 +106,7 @@ class FoodStockDatabase:
         cur = con.cursor()
         cur.execute("""
         CREATE TABLE IF NOT EXISTS Stock (
+            PurchaseDate DATE,
             Toiletries INT,
             Food INT,
             RoomSetUp INT
