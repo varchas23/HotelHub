@@ -27,13 +27,13 @@ class GuestDatabase:
         # Closes the cursor and connection
         cur.close()
         con.close()
-
+    
 class EmployeeDatabase:
     def __init__(self) -> None:
         # Creates table for employees
-        con = sqlite3.connect("managementdb.db")
-        cur = con.cursor()
-        cur.execute("""
+        self.con = sqlite3.connect("managementdb.db")
+        self.cur = self.con.cursor()
+        self.cur.execute("""
         CREATE TABLE IF NOT EXISTS Employees (
             EmployeeID INT PRIMARY KEY,
             Name TEXT,
@@ -47,15 +47,28 @@ class EmployeeDatabase:
         );
         """)
 
-        cur.execute("""INSERT INTO 'Employees' ('Name', 'JoiningDate', 'Username', 'Password', 'Email', 'PhoneNumber', 'Department', 'EmergencyNumber') VALUES
+        self.cur.execute("""INSERT INTO 'Employees' ('Name', 'JoiningDate', 'Username', 'Password', 'Email', 'PhoneNumber', 'Department', 'EmergencyNumber') VALUES
                 ('Larry Brien', '2022-10-03', 'brien3', 'treehouse1', 'larrybrien@gmail.com', '1234567890', 'Housekeeping', '2345678901');
                 """)
 
         # Commits changes to database
-        con.commit()
+        self.con.commit()
         # Closes the cursor and connection
-        cur.close()
-        con.close()
+        self.cur.close()
+        self.con.close()
+    
+    """def insert(self, name, joindate, username, password, email, phonenumber, 
+               department, emergencynum,):
+        self.cur.execute("SELECT * FROM Employees WHERE Name=?", (name,))
+        entry = self.cur.fetchone()
+
+        if not entry:
+            self.cur.execute("INSERT INTO Employees ('Name', 'JoiningDate', \
+                             'Username', 'Password', 'Email', 'PhoneNumber', \
+                             'Department', 'EmergencyNumber') VALUES (?, '?', ?, ?, ?, \
+                             ?, ?, ?)", (name, joindate, username, password, email, 
+                                         phonenumber, department, emergencynum) )"""
+
     
 class FoodStockDatabase:
     def __init__(self) -> None:
