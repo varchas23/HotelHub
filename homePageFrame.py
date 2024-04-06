@@ -293,6 +293,8 @@ class ToiletriesStockWindow(tk.Frame):
         tk.Label(self, text="Toiletries Stock").pack()
         tk.Button(self, text="Home", 
                   command=lambda: controller.show_frame(HomeWindow)).pack()
+        self.connect()
+
         self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ), 
                                  show='headings')
         self.tree.column("#1", anchor=tk.CENTER)
@@ -306,6 +308,7 @@ class ToiletriesStockWindow(tk.Frame):
         self.tree.column("#5", anchor=tk.CENTER)
         self.tree.heading("#5", text="Staff Room")
         self.tree.pack()
+        self.add_data()
     
     def connect(self):
         """
@@ -315,6 +318,19 @@ class ToiletriesStockWindow(tk.Frame):
         
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
+        con1.close()
+    
+    def add_data(self):
+        """
+        Select all items from Employee table and display them in the table
+        """
+        con1 = sqlite3.connect("managementdb.db")
+        cur1 = con1.cursor()
+        cur1.execute("SELECT * FROM ToiletriesStock")
+        rows = cur1.fetchall()    
+        for row in rows:
+            print(row) 
+            self.tree.insert("", tk.END, values=row)           
         con1.close()
 
 class FoodStockWindow(tk.Frame):
@@ -350,15 +366,30 @@ class FoodStockWindow(tk.Frame):
         self.tree.column("#5", anchor=tk.CENTER)
         self.tree.heading("#5", text="Mini Fridge Snacks")
         self.tree.pack()
+        
+        self.add_data()
 
     def connect(self):
         """
         Create the Employee table in the management database
         """
-        db = StockDatabase()
+        db = FoodStockDatabase()
         
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
+        con1.close()
+    
+    def add_data(self):
+        """
+        Select all items from Employee table and display them in the table
+        """
+        con1 = sqlite3.connect("managementdb.db")
+        cur1 = con1.cursor()
+        cur1.execute("SELECT * FROM FoodStock")
+        rows = cur1.fetchall()    
+        for row in rows:
+            print(row) 
+            self.tree.insert("", tk.END, values=row)           
         con1.close()
 
 class RoomSetUpWindow(tk.Frame):
@@ -377,6 +408,9 @@ class RoomSetUpWindow(tk.Frame):
         tk.Label(self, text="Room Set Up").pack()
         tk.Button(self, text="Home", 
                   command=lambda: controller.show_frame(HomeWindow)).pack()
+        
+        self.connect()
+
         self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ),
                                   show='headings')
         self.tree.column("#1", anchor=tk.CENTER)
@@ -390,6 +424,7 @@ class RoomSetUpWindow(tk.Frame):
         self.tree.column("#5", anchor=tk.CENTER)
         self.tree.heading("#5", text="Staff Room")
         self.tree.pack()
+        self.add_data()
     
     def connect(self):
         """
@@ -399,6 +434,19 @@ class RoomSetUpWindow(tk.Frame):
         
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
+        con1.close()
+    
+    def add_data(self):
+        """
+        Select all items from Employee table and display them in the table
+        """
+        con1 = sqlite3.connect("managementdb.db")
+        cur1 = con1.cursor()
+        cur1.execute("SELECT * FROM RoomSetup")
+        rows = cur1.fetchall()    
+        for row in rows:
+            print(row) 
+            self.tree.insert("", tk.END, values=row)           
         con1.close()
 
 
@@ -497,7 +545,7 @@ class EmployeeInformationWindow(tk.Frame):
         self.tree.column("#8", anchor=tk.CENTER)
         self.tree.heading("#8", text="Emergency Number")
         self.tree.pack()
-        self.View()
+        self.add_data()
 
     def connect(self):
         """
@@ -509,7 +557,7 @@ class EmployeeInformationWindow(tk.Frame):
         cur1 = con1.cursor()
         con1.close()
 
-    def View(self):
+    def add_data(self):
         """
         Select all items from Employee table and display them in the table
         """

@@ -100,10 +100,22 @@ class FoodStockDatabase:
         CREATE TABLE IF NOT EXISTS FoodStock (
             HotelLevel INT,
             BreakfastFood INT,
+            LunchFood INT,
             DinnerFood INT,
             MiniFridge INT
         );
         """)
+
+        food_data = [
+            (1, 0, 5, 15, 20),
+            (2, 35, 36, 20, 25),
+            (3, 34, 36, 22, 32),
+            (4, 32, 32, 19, 21),
+            (5, 31, 26, 13,19)
+        ]
+
+        cur.executemany('INSERT into FoodStock (HotelLevel, BreakfastFood, LunchFood, \
+                        DinnerFood, MiniFridge) VALUES (?, ?, ?, ?, ?)', food_data)
         # Commits changes to database
         con.commit()
         # Closes the cursor and connection
@@ -119,10 +131,22 @@ class RoomSetupDatabase:
             HotelLevel INT,
             Bedding INT,
             Washroom INT,
-            CarpetClean INT
+            CarpetClean INT,
             StaffRoom INT
         );
         """)
+
+        roomsetup_data = [
+            (1, 0, 5, 15, 3),
+            (2, 35, 36, 20, 2),
+            (3, 34, 36, 22, 2),
+            (4, 32, 32, 19, 2),
+            (5, 31, 26, 13, 2)
+        ]
+
+        cur.executemany('INSERT into RoomSetup (HotelLevel, Bedding, Washroom, \
+                        CarpetClean, StaffRoom) VALUES (?, ?, ?, ?, ?)', roomsetup_data)
+
         # Commits changes to database
         con.commit()
         # Closes the cursor and connection
@@ -136,12 +160,23 @@ class ToiletriesStockDatabase:
         cur.execute("""
         CREATE TABLE IF NOT EXISTS ToiletriesStock (
             HotelLevel INT,
-            Bedding INT,
-            Washroom INT,
-            CarpetClean INT
+            Washrooms INT,
+            HotelRooms INT,
+            MaidRoom INT,
             StaffRoom INT
         );
         """)
+
+        toiletries_data = [
+            (1, 0, 5, 15, 3),
+            (2, 35, 36, 20, 2),
+            (3, 34, 36, 22, 2),
+            (4, 32, 32, 19, 2),
+            (5, 31, 26, 13, 2)
+        ]
+
+        cur.executemany('INSERT into ToiletriesStock (HotelLevel, Washrooms, HotelRooms, \
+                        MaidRoom, StaffRoom) VALUES (?, ?, ?, ?, ?)', toiletries_data)
         # Commits changes to database
         con.commit()
         # Closes the cursor and connection
