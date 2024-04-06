@@ -22,18 +22,23 @@ class HomeWindow(tk.Frame):
         
         """
         super().__init__(parent)
-        tk.Label(self, text="Home Page").pack(pady=10, padx=10)
+        tk.Label(self, text="Home Page", font=('EuphemiaUCAS 40 bold italic')).grid(row=0,column=2)
 
-        tk.Button(self, text="Finances of Hotel", font= ('Helvetica 20 bold italic'), 
-                  command=lambda: controller.show_frame(FinancialWindow)).pack()
-        tk.Button(self, text="Book a Room", font= ('Helvetica 20 bold italic'), 
-                  command=lambda: controller.show_frame(BookingWindow)).pack()
-        tk.Button(self, text="Stock Information", font= ('Helvetica 20 bold italic'), 
-                  command=lambda: controller.show_frame(StockInformationWindow)).pack()
-        tk.Button(self, text="Employee Information", font= ('Helvetica 20 bold italic'), 
-                  command=lambda: controller.show_frame(EmployeeInformationWindow)).pack()
-        tk.Button(self, text="Employee Schedule", font= ('Helvetica 20 bold italic'), 
-                  command=lambda: controller.show_frame(EmployeeScheduleWindow)).pack()
+        tk.Button(self, text="Finances of Hotel", font=('EuphemiaUCAS 30 bold italic'),
+                   pady=50, command=lambda: 
+                   controller.show_frame(FinancialWindow)).grid(row=3, column=0)
+        tk.Button(self, text="Book a Room", font=('EuphemiaUCAS 30 bold italic'),
+                   pady=50, command=lambda: 
+                   controller.show_frame(BookingWindow)).grid(row=5, column=0)
+        tk.Button(self, text="Stock Information", font=('EuphemiaUCAS 30 bold italic'),
+                   pady=50, command=lambda: 
+                   controller.show_frame(StockInformationWindow)).grid(row=3, column=3)
+        tk.Button(self, text="Employee Information", font=('EuphemiaUCAS 30 bold italic'), 
+                  pady=50, command=lambda: 
+                  controller.show_frame(EmployeeInformationWindow)).grid(row=5, column=3)
+        tk.Button(self, text="Employee Schedule", font=('EuphemiaUCAS 30 bold italic'),
+                  pady=50, command=lambda: 
+                  controller.show_frame(EmployeeScheduleWindow)).grid(row=8, column=2)
         
 class EmployeeHomeWindow(tk.Frame):
     def __init__(self, parent, controller):

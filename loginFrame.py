@@ -18,21 +18,24 @@ class LoginWindow(tk.Frame):
             """
             super().__init__(parent)
             
-            self.configure(background="#acf2b9")
+            self.configure(background="#d2f7df")
             self.controller = controller
             tk.Label(self, text="Hotel Hub", font=(('EuphemiaUCAS 40 bold italic')), 
-                     background="#acf2b9").pack(pady=10)
+                     background="#d2f7df").pack()
             #tk.Label(self, text="Login Window").pack(pady=10,padx=10)
-            tk.Label(self, text="LOGIN", font=('EuphemiaUCAS 20 bold italic'), background="#acf2b9").pack(pady=10,padx=10)
-            tk.Label(self, text="Username:", background="#acf2b9").pack()
+            tk.Label(self, text="LOGIN", font=('EuphemiaUCAS 30 bold italic'), 
+                     background="#d2f7df").pack(pady=10,padx=10)
+            tk.Label(self, text="Username:",font=('EuphemiaUCAS 20 bold italic'), 
+                     background="#d2f7df").pack()
             self.username_entry = tk.Entry(self)
             self.username_entry.pack()
 
-            tk.Label(self, text="Password:", background="#acf2b9").pack()
+            tk.Label(self, text="Password:", font=('EuphemiaUCAS 20 bold italic'),
+                     background="#d2f7df").pack()
             self.password_entry = tk.Entry(self, show="*")
             self.password_entry.pack()
            
-            tk.Button(self, text="Login", command=self.login).pack()
+            tk.Button(self, text="Login", command=self.login).pack(pady=10)
         
         def login(self):
             username = self.username_entry.get()
@@ -75,7 +78,7 @@ class HotelHub(tk.Tk):
         """
         super().__init__(*args, **kwargs)
         self.title("HotelHub")
-        self.geometry("1000x500")
+        self.geometry("1000x600")
         self.frames = {}
         self.configure(background="light green")
         container = tk.Frame(self)
