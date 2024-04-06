@@ -48,11 +48,11 @@ class EmployeeHomeWindow(tk.Frame):
         super().__init__(parent)
         tk.Label(self, text="Home Page").pack(pady=10, padx=10)
 
-        tk.Button(self, text="Book a Room", font= ('Helvetica 20 bold italic'), 
+        tk.Button(self, text="Book a Room", font=('EuphemiaUCAS 40 bold italic'), 
                   command=lambda: controller.show_frame(BookingWindow)).pack()
-        tk.Button(self, text="Stock Information", font= ('Helvetica 20 bold italic'), 
+        tk.Button(self, text="Stock Information", font=('EuphemiaUCAS 30 bold italic'), 
                   command=lambda: controller.show_frame(StockInformationWindow)).pack()
-        tk.Button(self, text="Employee Schedule", font= ('Helvetica 20 bold italic'), 
+        tk.Button(self, text="Employee Schedule", font=('EuphemiaUCAS 30 bold italic'), 
                   command=lambda: controller.show_frame(EmployeeScheduleWindow)).pack()
 
 class BookingWindow(tk.Frame):
@@ -74,66 +74,78 @@ class BookingWindow(tk.Frame):
         self.connect()
 
         # Entries and Labels for Entering Information to Book a Room for a Guest
-        tk.Label(self, text="Booking Window").grid(row=0)
+        tk.Label(self, text="Booking Window", 
+                 font=('EuphemiaUCAS 40 bold italic')).grid(row=0)
 
 
         # Guest id
-        tk.Label(self, text="Guest Id").grid(row=1, column=0)
+        tk.Label(self, text="Guest Id", 
+                 font=('EuphemiaUCAS 20 bold italic')).grid(row=1, column=0)
         id_entry = tk.Entry(self)
         id_entry.grid(row=1,column=1)
         
         # Name
-        tk.Label(self, text="Guest Name").grid(row=2, column=0)
+        tk.Label(self, text="Guest Name", 
+                 font=('EuphemiaUCAS 20 bold italic')).grid(row=2, column=0)
         name_entry = tk.Entry(self)
         name_entry.grid(row=2,column=1)
 
         # Address
-        tk.Label(self, text="Address").grid(row=3, column=0)
+        tk.Label(self, text="Address", 
+                 font=('EuphemiaUCAS 20 bold italic')).grid(row=3, column=0)
         address_entry = tk.Entry(self)
         address_entry.grid(row=3,column=1)
 
         #Credit Card Information
-        tk.Label(self, text="Credit Card #").grid(row=4, column=0)
+        tk.Label(self, text="Credit Card #", 
+                 font=('EuphemiaUCAS 20 bold italic')).grid(row=4, column=0)
         credit_card_entry = tk.Entry(self)
         credit_card_entry.grid(row=4,column=1)
 
         # Number of guests staying
-        tk.Label(self, text="Guest Number").grid(row=5, column=0)
+        tk.Label(self, text="Guest Number", 
+                 font=('EuphemiaUCAS 20 bold italic')).grid(row=5, column=0)
         num_guests_entry = tk.Entry(self)
         num_guests_entry.grid(row=5,column=1)
 
         # Room number
-        tk.Label(self, text="Room Number").grid(row=6, column=0)
+        tk.Label(self, text="Room Number", 
+                 font=('EuphemiaUCAS 20 bold italic')).grid(row=6, column=0)
         room_num_entry = tk.Entry(self)
         room_num_entry.grid(row=6,column=1)
 
         # Bed Selection
-        tk.Label(self, text="Bed Selection").grid(row=7, column=0)
+        tk.Label(self, text="Bed Selection", 
+                 font=('EuphemiaUCAS 20 bold italic')).grid(row=7, column=0)
         bed_entry = tk.Entry(self)
         bed_entry.grid(row=7,column=1)
 
         #Duration of Stay
-        tk.Label(self, text="Check-in").grid(row=8, column=0)
+        tk.Label(self, text="Check-in", 
+                 font=('EuphemiaUCAS 20 bold italic')).grid(row=8, column=0)
         checkin_entry = tk.Entry(self)
         checkin_entry.grid(row=8,column=1)
-        tk.Label(self, text="Check-out").grid(row=9, column=0)
+        tk.Label(self, text="Check-out", 
+                 font=('EuphemiaUCAS 20 bold italic')).grid(row=9, column=0)
         checkout_entry = tk.Entry(self)
         checkout_entry.grid(row=9,column=1)
 
 
         # Additional Accomodations
-        tk.Label(self, text="Other Accomodations").grid(row=10, column=0)
+        tk.Label(self, text="Other Accomodations", 
+                 font=('EuphemiaUCAS 20 bold italic')).grid(row=10, column=0)
         accomodations_entry = tk.Entry(self)
         accomodations_entry.grid(row=10,column=1)
 
-        tk.Button(self, text="Complete Booking", command=lambda: self.add_guest(
+        tk.Button(self, text="Complete Booking", 
+                  font=('EuphemiaUCAS 20 bold italic'), command=lambda: self.add_guest(
             id_entry.get(), name_entry.get(), address_entry.get(),credit_card_entry.get(),
             num_guests_entry.get(), room_num_entry.get(), bed_entry.get(), 
             checkin_entry.get(), checkout_entry.get(), accomodations_entry.get())
             ).grid(row=11, column=5)
 
         # Return to Home Page
-        tk.Button(self, text="Home", 
+        tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic') ,
                   command=lambda: 
                   controller.show_frame(HomeWindow)).grid(row=12)
     
@@ -178,8 +190,9 @@ class FinancialWindow(tk.Frame):
         """
         """
         super().__init__(parent)
-        tk.Label(self, text="Financial Window").pack(pady=10,padx=10)
-        tk.Button(self, text="Home", 
+        tk.Label(self, text="Financial Window", 
+                 font=('EuphemiaUCAS 40 bold italic')).pack(pady=10,padx=10)
+        tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'),
                   command=lambda: controller.show_frame(HomeWindow)).pack()
         
         self.connect()
@@ -290,8 +303,9 @@ class ToiletriesStockWindow(tk.Frame):
         """
         """
         super().__init__(parent)
-        tk.Label(self, text="Toiletries Stock").pack()
-        tk.Button(self, text="Home", 
+        tk.Label(self, text="Toiletries Stock", 
+                 font=('EuphemiaUCAS 40 bold italic')).pack()
+        tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'),
                   command=lambda: controller.show_frame(HomeWindow)).pack()
         self.connect()
 
@@ -346,8 +360,8 @@ class FoodStockWindow(tk.Frame):
         """
         """
         super().__init__(parent)
-        tk.Label(self, text="Food Stock").pack()
-        tk.Button(self, text="Home", 
+        tk.Label(self, text="Food Stock", font=('EuphemiaUCAS 40 bold italic')).pack()
+        tk.Button(self, text="Home",font=('EuphemiaUCAS 20 bold italic'),
                   command=lambda: controller.show_frame(HomeWindow)).pack()
         
         self.connect()
@@ -405,8 +419,8 @@ class RoomSetUpWindow(tk.Frame):
         """
         """
         super().__init__(parent)
-        tk.Label(self, text="Room Set Up").pack()
-        tk.Button(self, text="Home", 
+        tk.Label(self, text="Room Set Up", font=('EuphemiaUCAS 40 bold italic')).pack()
+        tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'),
                   command=lambda: controller.show_frame(HomeWindow)).pack()
         
         self.connect()
@@ -463,18 +477,20 @@ class StockInformationWindow(tk.Frame):
 
         """
         super().__init__(parent)
-        tk.Label(self, text="Stock Information").grid(row=0, column=0)
+        tk.Label(self, text="Stock Information", font=('EuphemiaUCAS 40 bold italic')).pack()
         
         # Buttons to lead to other frames for each stock 
-        tk.Button(self, text="Toiletries", command=lambda:
-                   controller.show_frame(ToiletriesStockWindow)).grid(row=1,column=0)
-        tk.Button(self, text="Food", command=lambda: 
-                  controller.show_frame(FoodStockWindow)).grid(row=2,column=0) 
-        tk.Button(self, text="Room Set Up", command=lambda: 
-                  controller.show_frame(RoomSetUpWindow)).grid(row=3,column=0) 
+        tk.Button(self, text="Toiletries Stock", font=('EuphemiaUCAS 20 bold italic'), 
+                  command=lambda:
+                   controller.show_frame(ToiletriesStockWindow)).pack()
+        tk.Button(self, text="Food Stock", font=('EuphemiaUCAS 20 bold italic'), command=lambda: 
+                  controller.show_frame(FoodStockWindow)).pack() 
+        tk.Button(self, text="Room Set Up", font=('EuphemiaUCAS 20 bold italic'), 
+                  command=lambda: 
+                  controller.show_frame(RoomSetUpWindow)).pack()
         
-        tk.Button(self, text="Home", command=lambda: 
-                  controller.show_frame(HomeWindow)).grid(row=4,column=0)
+        tk.Button(self, text="Main Menu", font=('EuphemiaUCAS 20 bold italic'), command=lambda: 
+                  controller.show_frame(HomeWindow)).pack()
 
 
 class EmployeeScheduleWindow(tk.Frame):
@@ -484,8 +500,9 @@ class EmployeeScheduleWindow(tk.Frame):
         """
         """
         super().__init__(parent)
-        tk.Label(self, text="Employee Schedule").pack(pady=10,padx=10)
-        tk.Button(self, text="Home", command=lambda:
+        tk.Label(self, text="Employee Schedule", 
+                 font=('EuphemiaUCAS 40 bold italic')).pack(pady=10,padx=10)
+        tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'), command=lambda:
                   controller.show_frame(HomeWindow)).pack()
         
         self.connect()
@@ -549,8 +566,9 @@ class EmployeeInformationWindow(tk.Frame):
         """
         super().__init__(parent)
 
-        tk.Label(self, text="Employee Information").pack(pady=10,padx=10)
-        tk.Button(self, text="Home", command=lambda: 
+        tk.Label(self, text="Employee Information", 
+                 font=('EuphemiaUCAS 40 bold italic')).pack(pady=10,padx=10)
+        tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'), command=lambda: 
                   controller.show_frame(HomeWindow)).pack()
         
         self.connect() 
