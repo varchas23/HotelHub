@@ -73,28 +73,8 @@ class EmployeeDatabase:
         self.cur.close()
         self.con.close()
 
-class EmployeeSchedule:
-    def __init__(self) -> None:
-        con = sqlite3.connect("managementdb.db")
-        cur = con.cursor()
-        # Creates table for schedule of employees
-        cur.execute("""
-        CREATE TABLE IF NOT EXISTS EmployeeSchedule (
-            Id INTEGER PRIMARY KEY,
-            Name INTEGER,
-            WorkDay TEXT,
-            FOREIGN KEY (Name) REFERENCES Employees(Name)
-        );
-        """)
-        cur.execute("INSERT INTO 'EmployeeSchedule' ('Name', 'WorkDay') VALUES \
-                    ('Larry Brien', 'Monday');")
-        # Commits changes to database
-        con.commit()
-        # Closes the cursor and connection
-        cur.close()
-        con.close()
     
-class FoodStockDatabase:
+class StockDatabase:
     def __init__(self) -> None:
         con = sqlite3.connect("managementdb.db")
         cur = con.cursor()
@@ -104,6 +84,62 @@ class FoodStockDatabase:
             Toiletries INT,
             Food INT,
             RoomSetUp INT
+        );
+        """)
+        # Commits changes to database
+        con.commit()
+        # Closes the cursor and connection
+        cur.close()
+        con.close()
+
+class FoodStockDatabase:
+    def __init__(self) -> None:
+        con = sqlite3.connect("managementdb.db")
+        cur = con.cursor()
+        cur.execute("""
+        CREATE TABLE IF NOT EXISTS FoodStock (
+            HotelLevel INT,
+            BreakfastFood INT,
+            DinnerFood INT,
+            MiniFridge INT
+        );
+        """)
+        # Commits changes to database
+        con.commit()
+        # Closes the cursor and connection
+        cur.close()
+        con.close()
+
+class RoomSetupDatabase:
+    def __init__(self) -> None:
+        con = sqlite3.connect("managementdb.db")
+        cur = con.cursor()
+        cur.execute("""
+        CREATE TABLE IF NOT EXISTS RoomSetup (
+            HotelLevel INT,
+            Bedding INT,
+            Washroom INT,
+            CarpetClean INT
+            StaffRoom INT
+        );
+        """)
+        # Commits changes to database
+        con.commit()
+        # Closes the cursor and connection
+        cur.close()
+        con.close()
+
+class ToiletriesStockDatabase:
+    def __init__(self) -> None:
+        con = sqlite3.connect("managementdb.db")
+        cur = con.cursor()
+        cur.execute("""
+        CREATE TABLE IF NOT EXISTS ToiletriesStock (
+            HotelLevel INT,
+            Bedding INT,
+            Washroom INT,
+            CarpetClean INT
+            StaffRoom INT
         );
         """)
         # Commits changes to database

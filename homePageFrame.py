@@ -7,8 +7,8 @@ from tkinter import ttk
 from datetime import datetime
 import sqlite3, matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from managementdb import GuestDatabase, EmployeeDatabase, FoodStockDatabase
-
+from managementdb import GuestDatabase, EmployeeDatabase,StockDatabase, \
+    RoomSetupDatabase, ToiletriesStockDatabase, FoodStockDatabase
 class HomeWindow(tk.Frame):
     """
     Creates the main home window for HotelHub. From this window, users can access all
@@ -218,7 +218,7 @@ class FinancialWindow(tk.Frame):
     def connect(self):
         """
         """
-        db = FoodStockDatabase()
+        db = StockDatabase()
 
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
@@ -306,6 +306,16 @@ class ToiletriesStockWindow(tk.Frame):
         self.tree.column("#5", anchor=tk.CENTER)
         self.tree.heading("#5", text="Staff Room")
         self.tree.pack()
+    
+    def connect(self):
+        """
+        Create the Employee table in the management database
+        """
+        db = ToiletriesStockDatabase()
+        
+        con1 = sqlite3.connect("managementdb.db")
+        cur1 = con1.cursor()
+        con1.close()
 
 class FoodStockWindow(tk.Frame):
     """
@@ -324,6 +334,8 @@ class FoodStockWindow(tk.Frame):
         tk.Button(self, text="Home", 
                   command=lambda: controller.show_frame(HomeWindow)).pack()
         
+        self.connect()
+        
         # Setting up table for information about food stock database
         self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ), 
                                  show='headings')
@@ -338,6 +350,16 @@ class FoodStockWindow(tk.Frame):
         self.tree.column("#5", anchor=tk.CENTER)
         self.tree.heading("#5", text="Mini Fridge Snacks")
         self.tree.pack()
+
+    def connect(self):
+        """
+        Create the Employee table in the management database
+        """
+        db = StockDatabase()
+        
+        con1 = sqlite3.connect("managementdb.db")
+        cur1 = con1.cursor()
+        con1.close()
 
 class RoomSetUpWindow(tk.Frame):
     """
@@ -368,6 +390,16 @@ class RoomSetUpWindow(tk.Frame):
         self.tree.column("#5", anchor=tk.CENTER)
         self.tree.heading("#5", text="Staff Room")
         self.tree.pack()
+    
+    def connect(self):
+        """
+        Create the Employee table in the management database
+        """
+        db = RoomSetupDatabase()
+        
+        con1 = sqlite3.connect("managementdb.db")
+        cur1 = con1.cursor()
+        con1.close()
 
 
 class StockInformationWindow(tk.Frame):
