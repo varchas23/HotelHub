@@ -17,14 +17,18 @@ class LoginWindow(tk.Frame):
             """
             """
             super().__init__(parent)
+            
+            self.configure(background="#acf2b9")
             self.controller = controller
-            tk.Label(self, text="Login Window").pack(pady=10,padx=10)
-            tk.Label(self, text="LOGIN").pack(pady=10,padx=10)
-            tk.Label(self, text="Username:").pack()
+            tk.Label(self, text="Hotel Hub", font=(('EuphemiaUCAS 40 bold italic')), 
+                     background="#acf2b9").pack(pady=10)
+            #tk.Label(self, text="Login Window").pack(pady=10,padx=10)
+            tk.Label(self, text="LOGIN", font=('EuphemiaUCAS 20 bold italic'), background="#acf2b9").pack(pady=10,padx=10)
+            tk.Label(self, text="Username:", background="#acf2b9").pack()
             self.username_entry = tk.Entry(self)
             self.username_entry.pack()
 
-            tk.Label(self, text="Password:").pack()
+            tk.Label(self, text="Password:", background="#acf2b9").pack()
             self.password_entry = tk.Entry(self, show="*")
             self.password_entry.pack()
            
@@ -73,6 +77,7 @@ class HotelHub(tk.Tk):
         self.title("HotelHub")
         self.geometry("1000x500")
         self.frames = {}
+        self.configure(background="light green")
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)

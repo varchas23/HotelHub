@@ -197,7 +197,7 @@ class FinancialWindow(tk.Frame):
                          SUM(Toiletries + Food + RoomSetUp) AS Expenditure FROM Stock \
                          GROUP BY strftime('%m', PurchaseDate);")
         expenditure_data = self.cur.fetchall()
-        self.months_expenditure, self.expenditure = zip(*expenditure_data)
+       # self.months_expenditure, self.expenditure = zip(*expenditure_data)
         self.con.close()
     
     def connect(self):
