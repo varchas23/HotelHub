@@ -8,7 +8,7 @@ from datetime import datetime
 import sqlite3, matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from managementdb import GuestDatabase, EmployeeDatabase,StockDatabase, \
-    RoomSetupDatabase, ToiletriesStockDatabase, FoodStockDatabase
+    RoomSetupDatabase, ToiletriesStockDatabase, FoodStockDatabase, EmployeeSchedule
 class HomeWindow(tk.Frame):
     """
     Creates the main home window for HotelHub. From this window, users can access all
@@ -487,28 +487,58 @@ class EmployeeScheduleWindow(tk.Frame):
         tk.Label(self, text="Employee Schedule").pack(pady=10,padx=10)
         tk.Button(self, text="Home", command=lambda:
                   controller.show_frame(HomeWindow)).pack()
-        self.con = sqlite3.connect("managementdb.db")
-        self.cur = self.con.cursor()
-   
+        
+        self.connect()
+
+        # Creating the table employee information to display
+        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4", "c5", 
+                                               "c6", "c7"), show='headings')
+        self.tree.column("#1", anchor=tk.CENTER)
+        self.tree.heading("#1", text="Sunday")
+        self.tree.column("#2", anchor=tk.CENTER)
+        self.tree.heading("#2", text="Monday")
+        self.tree.column("#3", anchor=tk.CENTER)
+        self.tree.heading("#3", text="Tuesday")
+        self.tree.column("#4", anchor=tk.CENTER)
+        self.tree.heading("#4", text="Wednesday")
+        self.tree.column("#5", anchor=tk.CENTER)
+        self.tree.heading("#5", text="Thursday")
+        self.tree.column("#6", anchor=tk.CENTER)
+        self.tree.heading("#6", text="Friday")
+        self.tree.column("#7", anchor=tk.CENTER)
+        self.tree.heading("#7", text="Saturday")
+        self.tree.pack()
+        self.getData()
+
+    def connect(self):
+        """
+        Create the Employee table in the management database
+        """
+        db = EmployeeSchedule()
+        
+        con1 = sqlite3.connect("managementdb.db")
+        cur1 = con1.cursor()
+        con1.close()
+
     def getData(self):
-        self.cur.execute("SELECT Name, WorkDay FROM EmployeeSchedule")
-        data = self.cur.fetchall()
-        self.con.close()
-        return data
-
-    def showSchedule(self):
-        days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-        for i, day in enumerate(days):
-            tk.Label(self, text=day, padx=10, pady=10, borderwidth=1).grid(row=0, column=i, sticky="ew")
-
-        schedule = {day: [] for day in days}
-        for workDay, name in self.getData():
-            schedule[workDay].append(name)
-
-        for i, day in enumerate(days):
-            names = schedule.get(day, [])
-            for j, name in enumerate(names, start=1):
-                tk.Label(self, text=name, padx=5, pady=5, borderwidth=1).grid(row=j, column=i, sticky="ew")
+        """
+        """
+        self.con1 = sqlite3.connect("managementdb.db")
+        self.cur1 = self.con1.cursor()
+        self.cur1.execute("SELECT Name FROM EmployeeSchedule ORDER BY CASE \
+                    WHEN WorkDay = 'Sunday' THEN 1 \
+                    WHEN WorkDay = 'Monday' THEN 2 \
+                    WHEN WorkDay = 'Tuesday' THEN 3 \
+                    WHEN WorkDay = 'Wednesday' THEN 4 \
+                    WHEN WorkDay = 'Thursday' THEN 5 \
+                    WHEN WorkDay = 'Friday' THEN 6 \
+                    WHEN WorkDay = 'Saturday' THEN 7 \
+                    ELSE 8 END;")
+        rows = self.cur1.fetchall()
+        for row in rows:
+            print(row) 
+            self.tree.insert("", tk.END, values=row) 
+        self.con1.close()
 
 
 class EmployeeInformationWindow(tk.Frame):
