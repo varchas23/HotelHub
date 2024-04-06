@@ -186,31 +186,40 @@ class FinancialWindow(tk.Frame):
         self.con = sqlite3.connect("managementdb.db")
         self.cur = self.con.cursor()
 
+        self.monthsGuests, self.numGuests, self.months_income = [], [], []
+        self.income, self.months_expenditure, self.expenditure = [], [], []
+
         self.cur.execute("SELECT strftime('%m', CheckInDate) AS Month, \
                          COUNT(GuestID) AS GuestsNumber FROM Guests \
                          GROUP BY strftime('%m', CheckInDate);")
         incomingGuests = self.cur.fetchall()
-        self.monthsGuests, self.numGuests = zip(*incomingGuests)
+        for tup in incomingGuests:
+            self.monthsGuests.append(int(tup[0]))
+            self.numGuests.append(tup[1])
 
         self.cur.execute("SELECT strftime('%m', CheckInDate) AS Month, \
                          SUM(NumberOfGuests * 80) AS Income FROM Guests \
                          GROUP BY strftime('%m', CheckInDate);")
         income_data = self.cur.fetchall()
-        self.months_income, self.income = zip(*income_data)
+        for tup in income_data:
+            self.months_income.append(int(tup[0]))
+            self.income.append(tup[1])
 
         self.cur.execute("SELECT strftime('%m', PurchaseDate) AS Month, \
                          SUM(Toiletries + Food + RoomSetUp) AS Expenditure FROM Stock \
                          GROUP BY strftime('%m', PurchaseDate);")
         expenditure_data = self.cur.fetchall()
-       # self.months_expenditure, self.expenditure = zip(*expenditure_data)
+        for tup in expenditure_data:
+            self.months_expenditure.append(int(tup[0]))
+            self.expenditure.append(tup[1])
+
         self.con.close()
     
     def connect(self):
         """
         """
         db = FoodStockDatabase()
-        
-        #managementdb.condb()
+
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
         con1.close()
