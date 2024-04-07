@@ -18,7 +18,7 @@ class LoginWindow(tk.Frame):
         Creates the login window. All users will be able to see this login window
         and use the following login in order to gain access to the HotelHub application.
 
-        Managers login is: 
+        Managers login is:
             username: manager
             password: admin
 
@@ -29,18 +29,18 @@ class LoginWindow(tk.Frame):
         def __init__(self, parent, controller) -> None:
             """
             Initializer for the Login Window. This initializer creates the look
-            of the frame with all the entries and labels. 
+            of the frame with all the entries and labels.
             """
             super().__init__(parent)
-            
+
             self.configure(background="#d2f7df")
             self.controller = controller
-            tk.Label(self, text="Hotel Hub", font=(('EuphemiaUCAS 40 bold italic')), 
+            tk.Label(self, text="Hotel Hub", font=(('EuphemiaUCAS 40 bold italic')),
                      background="#d2f7df").pack()
             #tk.Label(self, text="Login Window").pack(pady=10,padx=10)
-            tk.Label(self, text="LOGIN", font=('EuphemiaUCAS 30 bold italic'), 
+            tk.Label(self, text="LOGIN", font=('EuphemiaUCAS 30 bold italic'),
                      background="#d2f7df").pack(pady=10,padx=10)
-            tk.Label(self, text="Username:",font=('EuphemiaUCAS 20 bold italic'), 
+            tk.Label(self, text="Username:",font=('EuphemiaUCAS 20 bold italic'),
                      background="#d2f7df").pack()
             self.username_entry = tk.Entry(self)
             self.username_entry.pack()
@@ -49,14 +49,14 @@ class LoginWindow(tk.Frame):
                      background="#d2f7df").pack()
             self.password_entry = tk.Entry(self, show="*")
             self.password_entry.pack()
-           
+
             tk.Button(self, text="Login", command=self.login).pack(pady=10)
-        
+
         def login(self):
             """
-            Controls whether the user will gain access to the system. 
-            
-            Managers login is: 
+            Controls whether the user will gain access to the system.
+
+            Managers login is:
             username: manager
             password: admin
 
@@ -66,7 +66,7 @@ class LoginWindow(tk.Frame):
             """
             username = self.username_entry.get()
             password = self.password_entry.get()
-        
+
             if username == "manager" and password == "admin":
                 messagebox.showinfo("Login Success", "Welcome, Manager!")
                 # Make call for manager home page
@@ -80,27 +80,27 @@ class LoginWindow(tk.Frame):
 
             else:
                 messagebox.showerror("Login Failed", "Invalid credentials.\
-                                      Please try again.")  
+                                      Please try again.")
 
 class HotelHub(tk.Tk):
     """
     The application HotelHub.
 
-    In this application, managers and employees will be able to access varying 
+    In this application, managers and employees will be able to access varying
     functionalities.
 
     Managers: will have access to all functionalities - Booking Window, Financial Window
-            Stock Information Window (Food Stock, Toiletries Stock, Room Set Up), 
-            Employee Information Window, and Employee Schedule Window 
+            Stock Information Window (Food Stock, Toiletries Stock, Room Set Up),
+            Employee Information Window, and Employee Schedule Window
     Employees: will have acces to the following functionalities - Booking Window,
-            Stock Information Window (Food Stock, Toiletries Stock, Room Set Up), and 
+            Stock Information Window (Food Stock, Toiletries Stock, Room Set Up), and
             Employee Schedule Window
     """
     def __init__(self, *args, **kwargs):
         """
         Initialization function for the HotelHub application.
 
-        Creation of all frames to swap through - starting with the Login Window. 
+        Creation of all frames to swap through - starting with the Login Window.
         """
         super().__init__(*args, **kwargs)
         self.title("HotelHub")
@@ -111,20 +111,20 @@ class HotelHub(tk.Tk):
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
-        for F in (HomeWindow, BookingWindow, LoginWindow, FinancialWindow, 
-                  StockInformationWindow, EmployeeInformationWindow, 
+        for F in (HomeWindow, BookingWindow, LoginWindow, FinancialWindow,
+                  StockInformationWindow, EmployeeInformationWindow,
                   EmployeeScheduleWindow, FoodStockWindow, ToiletriesStockWindow,
                     RoomSetUpWindow, EmployeeHomeWindow ):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
-        
+
         self.show_frame(LoginWindow)
 
-        
+
     def show_frame(self, page_name):
         """
-        Function to display the page which is given to the users screen. 
+        Function to display the page which is given to the users screen.
         """
         frame = self.frames[page_name]
         frame.tkraise()
@@ -132,66 +132,66 @@ class HotelHub(tk.Tk):
 class HomeWindow(tk.Frame):
     """
     Creates the main home window for HotelHub. From this window, users can access all
-    other windows by selecting the corresponding button. 
-    
-    This page is used as a central navigation page for the user. It should be 
-    accessible from each page that the user is on. 
+    other windows by selecting the corresponding button.
+
+    This page is used as a central navigation page for the user. It should be
+    accessible from each page that the user is on.
     """
     def __init__(self, parent, controller):
-        """ 
+        """
         Initializer for the Home Window. This initializer creates the look
-        of the frame with all the entries and labels. 
+        of the frame with all the entries and labels.
 
-        All buttons will lead the user to a new page. 
+        All buttons will lead the user to a new page.
         """
         super().__init__(parent)
         tk.Label(self, text="Home Page", font=('EuphemiaUCAS 40 bold italic')).grid(row=0,column=2)
 
         tk.Button(self, text="Finances of Hotel", font=('EuphemiaUCAS 30 bold italic'),
-                   pady=50, command=lambda: 
+                   pady=50, command=lambda:
                    controller.show_frame(FinancialWindow)).grid(row=3, column=0)
         tk.Button(self, text="Book a Room", font=('EuphemiaUCAS 30 bold italic'),
-                   pady=50, command=lambda: 
+                   pady=50, command=lambda:
                    controller.show_frame(BookingWindow)).grid(row=5, column=0)
         tk.Button(self, text="Stock Information", font=('EuphemiaUCAS 30 bold italic'),
-                   pady=50, command=lambda: 
+                   pady=50, command=lambda:
                    controller.show_frame(StockInformationWindow)).grid(row=3, column=3)
-        tk.Button(self, text="Employee Information", font=('EuphemiaUCAS 30 bold italic'), 
-                  pady=50, command=lambda: 
+        tk.Button(self, text="Employee Information", font=('EuphemiaUCAS 30 bold italic'),
+                  pady=50, command=lambda:
                   controller.show_frame(EmployeeInformationWindow)).grid(row=5, column=3)
         tk.Button(self, text="Employee Schedule", font=('EuphemiaUCAS 30 bold italic'),
-                  pady=50, command=lambda: 
+                  pady=50, command=lambda:
                   controller.show_frame(EmployeeScheduleWindow)).grid(row=8, column=2)
         tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(LoginWindow)).grid(row=9, column=2)
-        
+
 class EmployeeHomeWindow(tk.Frame):
     """
-    Creates the employee home window for HotelHub. From this window, employees can 
-    access selective windows by selecting the corresponding button. 
-    
-    This page is used as a central navigation page for the user. It should be 
-    accessible from each page that the user is on. 
+    Creates the employee home window for HotelHub. From this window, employees can
+    access selective windows by selecting the corresponding button.
+
+    This page is used as a central navigation page for the user. It should be
+    accessible from each page that the user is on.
     """
     def __init__(self, parent, controller):
-        """ 
+        """
         Initializer for the Employee Home Window. This initializer creates the look
-        of the frame with all the entries and labels. 
+        of the frame with all the entries and labels.
 
-        All buttons will lead the user to a new page. 
+        All buttons will lead the user to a new page.
         """
         super().__init__(parent)
         tk.Label(self, text="Home Page").pack(pady=10, padx=10)
 
-        tk.Button(self, text="Book a Room", font=('EuphemiaUCAS 40 bold italic'), 
+        tk.Button(self, text="Book a Room", font=('EuphemiaUCAS 40 bold italic'),
                   command=lambda: controller.show_frame(BookingWindow)).pack()
-        tk.Button(self, text="Stock Information", font=('EuphemiaUCAS 30 bold italic'), 
+        tk.Button(self, text="Stock Information", font=('EuphemiaUCAS 30 bold italic'),
                   command=lambda: controller.show_frame(StockInformationWindow)).pack()
-        tk.Button(self, text="Employee Schedule", font=('EuphemiaUCAS 30 bold italic'), 
+        tk.Button(self, text="Employee Schedule", font=('EuphemiaUCAS 30 bold italic'),
                   command=lambda: controller.show_frame(EmployeeScheduleWindow)).pack()
         tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(LoginWindow)).pack()
 
 class BookingWindow(tk.Frame):
@@ -203,9 +203,9 @@ class BookingWindow(tk.Frame):
     def __init__(self, parent, controller) -> None:
         """
         Initializer for the Booking Window. This initializer creates the look
-        of the frame with all the entries and labels. 
+        of the frame with all the entries and labels.
 
-        The information entered into each entry box will be used to create a 
+        The information entered into each entry box will be used to create a
         new entry into the guest database
         """
         super().__init__(parent)
@@ -213,100 +213,100 @@ class BookingWindow(tk.Frame):
         self.connect()
 
         # Entries and Labels for Entering Information to Book a Room for a Guest
-        tk.Label(self, text="Booking Window", 
+        tk.Label(self, text="Booking Window",
                  font=('EuphemiaUCAS 40 bold italic')).grid(row=0)
 
 
         # Guest id
-        tk.Label(self, text="Guest Id", 
+        tk.Label(self, text="Guest Id",
                  font=('EuphemiaUCAS 20 bold italic')).grid(row=1, column=0)
         id_entry = tk.Entry(self)
         id_entry.grid(row=1,column=1)
-        
+
         # Name
-        tk.Label(self, text="Guest Name", 
+        tk.Label(self, text="Guest Name",
                  font=('EuphemiaUCAS 20 bold italic')).grid(row=2, column=0)
         name_entry = tk.Entry(self)
         name_entry.grid(row=2,column=1)
 
         # Address
-        tk.Label(self, text="Address", 
+        tk.Label(self, text="Address",
                  font=('EuphemiaUCAS 20 bold italic')).grid(row=3, column=0)
         address_entry = tk.Entry(self)
         address_entry.grid(row=3,column=1)
 
         #Credit Card Information
-        tk.Label(self, text="Credit Card #", 
+        tk.Label(self, text="Credit Card #",
                  font=('EuphemiaUCAS 20 bold italic')).grid(row=4, column=0)
         credit_card_entry = tk.Entry(self)
         credit_card_entry.grid(row=4,column=1)
 
         # Number of guests staying
-        tk.Label(self, text="Guest Number", 
+        tk.Label(self, text="Guest Number",
                  font=('EuphemiaUCAS 20 bold italic')).grid(row=5, column=0)
         num_guests_entry = tk.Entry(self)
         num_guests_entry.grid(row=5,column=1)
 
         # Room number
-        tk.Label(self, text="Room Number", 
+        tk.Label(self, text="Room Number",
                  font=('EuphemiaUCAS 20 bold italic')).grid(row=6, column=0)
         room_num_entry = tk.Entry(self)
         room_num_entry.grid(row=6,column=1)
 
         # Bed Selection
-        tk.Label(self, text="Bed Selection", 
+        tk.Label(self, text="Bed Selection",
                  font=('EuphemiaUCAS 20 bold italic')).grid(row=7, column=0)
         bed_entry = tk.Entry(self)
         bed_entry.grid(row=7,column=1)
 
         #Duration of Stay
-        tk.Label(self, text="Check-in", 
+        tk.Label(self, text="Check-in",
                  font=('EuphemiaUCAS 20 bold italic')).grid(row=8, column=0)
         checkin_entry = tk.Entry(self)
         checkin_entry.grid(row=8,column=1)
-        tk.Label(self, text="Check-out", 
+        tk.Label(self, text="Check-out",
                  font=('EuphemiaUCAS 20 bold italic')).grid(row=9, column=0)
         checkout_entry = tk.Entry(self)
         checkout_entry.grid(row=9,column=1)
 
 
         # Additional Accomodations
-        tk.Label(self, text="Other Accomodations", 
+        tk.Label(self, text="Other Accomodations",
                  font=('EuphemiaUCAS 20 bold italic')).grid(row=10, column=0)
         accomodations_entry = tk.Entry(self)
         accomodations_entry.grid(row=10,column=1)
 
-        tk.Button(self, text="Complete Booking", 
+        tk.Button(self, text="Complete Booking",
                   font=('EuphemiaUCAS 20 bold italic'), command=lambda: self.add_guest(
             id_entry.get(), name_entry.get(), address_entry.get(),credit_card_entry.get(),
-            num_guests_entry.get(), room_num_entry.get(), bed_entry.get(), 
+            num_guests_entry.get(), room_num_entry.get(), bed_entry.get(),
             checkin_entry.get(), checkout_entry.get(), accomodations_entry.get())
             ).grid(row=6, column=8)
 
         # Return to Home Page
         tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic') ,
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(HomeWindow)).grid(row=0, column=18)
-        
+
         tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(LoginWindow)).grid(row=15, column=5)
-    
+
     def connect(self):
         """
         Create and connect the GuestDatabase
         """
         db = GuestDatabase()
-        
+
         #managementdb.condb()
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
         con1.close()
-    
-    def add_guest(self, id, name, address, creditcard, numguests, roomnum, 
+
+    def add_guest(self, id, name, address, creditcard, numguests, roomnum,
                bedselet, checkin, checkout, requests):
         """
-        Intake for booking information - this information coming from the entries on 
+        Intake for booking information - this information coming from the entries on
         the booking window will be added to the database for access.
         """
         con1 = sqlite3.connect("managementdb.db")
@@ -319,10 +319,10 @@ class BookingWindow(tk.Frame):
                              'CreditCardInfo', 'NumberOfGuests', 'RoomNumber', \
                              'BedSelection', 'CheckInDate', 'CheckOutDate', \
                              'SpecialRequests') VALUES (?, ?, ?, ?, ?, \
-                             ?, ?, ?, ?, ?)", (id, name, address, creditcard, numguests, 
+                             ?, ?, ?, ?, ?)", (id, name, address, creditcard, numguests,
                                          roomnum, bedselet, checkin, checkout, requests))
         con1.commit()
-    
+
 
 class FinancialWindow(tk.Frame):
     """
@@ -336,11 +336,11 @@ class FinancialWindow(tk.Frame):
         """
         super().__init__(parent)
         # Entries and Labels for Financial Window with Home button
-        tk.Label(self, text="Financial Window", 
+        tk.Label(self, text="Financial Window",
                  font=('EuphemiaUCAS 40 bold italic')).pack(pady=10,padx=10)
         tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'),
                   command=lambda: controller.show_frame(HomeWindow)).pack()
-        
+
         # Calls self.connect() to create stock table
         self.connect()
         # Connects to database and implements cursor
@@ -386,13 +386,13 @@ class FinancialWindow(tk.Frame):
 
         # Closes connection to database
         self.con.close()
-        
+
         # Calls plotGraph method
         self.plotGraph()
 
         # Logout button
         tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(LoginWindow)).pack()
 
     def connect(self):
@@ -404,7 +404,7 @@ class FinancialWindow(tk.Frame):
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
         con1.close()
-    
+
     def displayGraph(self, fig1, fig2, fig3):
         """
         Display the graphs for the financial window.
@@ -429,10 +429,10 @@ class FinancialWindow(tk.Frame):
         canvasExpenditure = FigureCanvasTkAgg(fig3, master=frame3)
         canvasExpenditure.draw()
         canvasExpenditure.get_tk_widget().pack(side="left", fill="both", expand=True)
-    
+
     def plotGraph(self):
         """
-        Plot graphs for the financial page. 
+        Plot graphs for the financial page.
         """
         # Creates line graph visualization of incoming guests over a year
         fig1 = plt.figure(figsize=(3, 3))
@@ -466,32 +466,32 @@ class FinancialWindow(tk.Frame):
 
         # Calls displayGraph method
         self.displayGraph(fig1, fig2, fig3)
-        
+
 
 class ToiletriesStockWindow(tk.Frame):
     """
-    Creates the toiletries stock information window for HotelHub. From this window, 
+    Creates the toiletries stock information window for HotelHub. From this window,
     the manager and employees will be able to view the toiletry stock levels of the public
     washrooms, hotel rooms, maids room and staff room of the hotel.
 
     If a level needs to be restocked then the label for the level will turn red to
-    indicate that there is restock required. 
+    indicate that there is restock required.
     """
     def __init__(self, parent, controller) -> None:
         """
         Initializer for the toiletries stock window. This initializer creates the look
-        of the frame with all the entries and labels. 
+        of the frame with all the entries and labels.
 
         Displays the stock using a table and gets the information from the management
         database.
         """
         super().__init__(parent)
-        tk.Label(self, text="Toiletries Stock", 
+        tk.Label(self, text="Toiletries Stock",
                  font=('EuphemiaUCAS 40 bold italic')).pack()
-        
+
         self.connect()
 
-        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ), 
+        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ),
                                  show='headings')
         self.tree.column("#1", anchor=tk.CENTER)
         self.tree.heading("#1", text="Hotel Level")
@@ -506,26 +506,26 @@ class ToiletriesStockWindow(tk.Frame):
         self.tree.pack()
         self.add_data()
         tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(HomeWindow)).pack(side="top", expand=True)
         tk.Button(self, text="Go Back",font=('EuphemiaUCAS 20 bold italic'),
-                  command=lambda: 
-                  controller.show_frame(StockInformationWindow)).pack(side="top", 
+                  command=lambda:
+                  controller.show_frame(StockInformationWindow)).pack(side="top",
                                                                       expand=True)
         tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(LoginWindow)).pack()
-    
+
     def connect(self):
         """
         Create the Toiletries stock table in the management database
         """
         db = ToiletriesStockDatabase()
-        
+
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
         con1.close()
-    
+
     def add_data(self):
         """
         Select all items from Employee table and display them in the table
@@ -533,36 +533,36 @@ class ToiletriesStockWindow(tk.Frame):
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
         cur1.execute("SELECT * FROM ToiletriesStock")
-        rows = cur1.fetchall()    
+        rows = cur1.fetchall()
         for row in rows:
-            print(row) 
-            self.tree.insert("", tk.END, values=row)           
+            print(row)
+            self.tree.insert("", tk.END, values=row)
         con1.close()
 
 class FoodStockWindow(tk.Frame):
     """
-    Creates the food stock information window for HotelHub. From this window, 
-    the manager and employees will be able to view the food stock levels of the 
+    Creates the food stock information window for HotelHub. From this window,
+    the manager and employees will be able to view the food stock levels of the
     restaurant breakfast, restaurant lunch, restaurant dinner, and mini fridge snacks
 
     If a level needs to be restocked then the label for the level will turn red to
-    indicate that there is restock required. 
+    indicate that there is restock required.
     """
     def __init__(self, parent, controller) -> None:
         """
         Initializer for the food stock window. This initializer creates the look
-        of the frame with all the entries and labels. 
+        of the frame with all the entries and labels.
 
         Displays the stock using a table and gets the information from the management
         database.
         """
         super().__init__(parent)
         tk.Label(self, text="Food Stock", font=('EuphemiaUCAS 40 bold italic')).pack()
-        
+
         self.connect()
-        
+
         # Setting up table for information about food stock database
-        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ), 
+        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ),
                                  show='headings')
         self.tree.column("#1", anchor=tk.CENTER)
         self.tree.heading("#1", text="Hotel Level")
@@ -577,16 +577,16 @@ class FoodStockWindow(tk.Frame):
         self.tree.pack()
 
         tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'),
-                  command=lambda: controller.show_frame(HomeWindow)).pack(side="top", 
+                  command=lambda: controller.show_frame(HomeWindow)).pack(side="top",
                                                                           expand=True)
         tk.Button(self, text="Go Back",font=('EuphemiaUCAS 20 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(StockInformationWindow)).pack(side="top",
                                                                        expand=True)
         tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(LoginWindow)).pack()
-        
+
         self.add_data()
 
     def connect(self):
@@ -594,11 +594,11 @@ class FoodStockWindow(tk.Frame):
         Create the Food stock table in the management database
         """
         db = FoodStockDatabase()
-        
+
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
         con1.close()
-    
+
     def add_data(self):
         """
         Select all items from Employee table and display them in the table
@@ -606,25 +606,25 @@ class FoodStockWindow(tk.Frame):
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
         cur1.execute("SELECT * FROM FoodStock")
-        rows = cur1.fetchall()    
+        rows = cur1.fetchall()
         for row in rows:
-            print(row) 
-            self.tree.insert("", tk.END, values=row)           
+            print(row)
+            self.tree.insert("", tk.END, values=row)
         con1.close()
 
 class RoomSetUpWindow(tk.Frame):
     """
-    Creates the room set up information window for HotelHub. From this window, 
+    Creates the room set up information window for HotelHub. From this window,
     the manager and employees will be able to view the rooms which need to be setup on
     various levels such as bedding, washrooms, carpet cleaning, and staff room cleaning.
 
     If a level needs to be restocked then the label for the level will turn red to
-    indicate that there is restock required. 
+    indicate that there is restock required.
     """
     def __init__(self, parent, controller) -> None:
         """
         Initializer for the room set up window. This initializer creates the look
-        of the frame with all the entries and labels. 
+        of the frame with all the entries and labels.
 
         Displays the room set up using a table and gets the information from the management
         database.
@@ -633,7 +633,7 @@ class RoomSetUpWindow(tk.Frame):
         tk.Label(self, text="Room Set Up", font=('EuphemiaUCAS 40 bold italic')).pack()
         tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'),
                   command=lambda: controller.show_frame(HomeWindow)).pack()
-        
+
         self.connect()
 
         self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4","c5" ),
@@ -652,26 +652,26 @@ class RoomSetUpWindow(tk.Frame):
         self.add_data()
 
         tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(HomeWindow)).pack(side="top", expand=True)
         tk.Button(self, text="Go Back",font=('EuphemiaUCAS 20 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(StockInformationWindow)).pack(side="top",
                                                                        expand=True)
         tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(LoginWindow)).pack()
-    
+
     def connect(self):
         """
         Create the Room setup table in the management database
         """
         db = RoomSetupDatabase()
-        
+
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
         con1.close()
-    
+
     def add_data(self):
         """
         Select all items from Employee table and display them in the table
@@ -679,75 +679,77 @@ class RoomSetUpWindow(tk.Frame):
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
         cur1.execute("SELECT * FROM RoomSetup")
-        rows = cur1.fetchall()    
+        rows = cur1.fetchall()
         for row in rows:
-            print(row) 
-            self.tree.insert("", tk.END, values=row)           
+            print(row)
+            self.tree.insert("", tk.END, values=row)
         con1.close()
 
 
 class StockInformationWindow(tk.Frame):
     """
-    Creates the stock information window for HotelHub. 
+    Creates the stock information window for HotelHub.
 
     From this window, managers will be able to select which stock information they
     would like to view. There are buttons to view each stock: toiletries, food, and rooms
-    which require set up.  
+    which require set up.
     """
 
     def __init__(self, parent, controller) -> None:
         """
         Initializer for the general stock window. This initializer creates the look
-        of the frame with all the entries and labels. 
+        of the frame with all the entries and labels.
 
-        Displays buttons which lead to other stock pages. 
+        Displays buttons which lead to other stock pages.
         """
         super().__init__(parent)
         tk.Label(self, text="Stock Information", font=('EuphemiaUCAS 40 bold italic')).pack()
-        
-        # Buttons to lead to other frames for each stock 
-        tk.Button(self, text="Toiletries Stock", font=('EuphemiaUCAS 20 bold italic'), 
+
+        # Buttons to lead to other frames for each stock
+        tk.Button(self, text="Toiletries Stock", font=('EuphemiaUCAS 20 bold italic'),
                   command=lambda:
                    controller.show_frame(ToiletriesStockWindow)).pack()
-        tk.Button(self, text="Food Stock", font=('EuphemiaUCAS 20 bold italic'), command=lambda: 
-                  controller.show_frame(FoodStockWindow)).pack() 
-        tk.Button(self, text="Room Set Up", font=('EuphemiaUCAS 20 bold italic'), 
-                  command=lambda: 
+        tk.Button(self, text="Food Stock", font=('EuphemiaUCAS 20 bold italic'), command=lambda:
+                  controller.show_frame(FoodStockWindow)).pack()
+        tk.Button(self, text="Room Set Up", font=('EuphemiaUCAS 20 bold italic'),
+                  command=lambda:
                   controller.show_frame(RoomSetUpWindow)).pack()
-        
-        tk.Button(self, text="Main Menu", font=('EuphemiaUCAS 20 bold italic'), command=lambda: 
+
+        tk.Button(self, text="Main Menu", font=('EuphemiaUCAS 20 bold italic'), command=lambda:
                   controller.show_frame(HomeWindow)).pack()
         tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(LoginWindow)).pack()
 
 
 class EmployeeScheduleWindow(tk.Frame):
     """
     Creates the window for the Employee Schedule. From this page, employees will be able
-    to view what employee is placed on the schedule for which day of the week. 
+    to view what employee is placed on the schedule for which day of the week.
 
-    Employee names will be displayed in a table under the respective day they will be 
+    Employee names will be displayed in a table under the respective day they will be
     working for that week.
     """
     def __init__(self, parent, controller) -> None:
         """
         Initializer for the employee schedule window. This initializer creates the look
-        of the frame with all the entries and labels. 
+        of the frame with all the entries and labels.
 
-        Displays the employee scheduel using a table and gets the information from the 
+        Displays the employee scheduel using a table and gets the information from the
         management database.
         """
         super().__init__(parent)
-        tk.Label(self, text="Employee Schedule", 
+        tk.Label(self, text="Employee Schedule",
                  font=('EuphemiaUCAS 40 bold italic')).pack(pady=10,padx=10)
+        # Home button
         tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'), command=lambda:
                   controller.show_frame(HomeWindow)).pack()
-        
+
+        # Calls connect() which creates EmployeeSchedule table
         self.connect()
 
         # Creating the table employee information to display
-        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4", "c5", 
+        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4", "c5",
                                                "c6", "c7"), show='headings')
         self.tree.column("#1", anchor=tk.CENTER)
         self.tree.heading("#1", text="Sunday")
@@ -764,70 +766,98 @@ class EmployeeScheduleWindow(tk.Frame):
         self.tree.column("#7", anchor=tk.CENTER)
         self.tree.heading("#7", text="Saturday")
         self.tree.pack()
+
+        # Calls getData() method
         self.getData()
+
         tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(LoginWindow)).pack()
 
     def connect(self):
         """
-        Create the Employee schedule table in the management database
+        Creates the Employee schedule table in the management database
         """
         db = EmployeeSchedule()
-        
+
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
         con1.close()
 
     def getData(self):
         """
+        Stores Name and WorkDay from EmployeeSchedule into dictionary
+        containing days
         """
         self.con1 = sqlite3.connect("managementdb.db")
         self.cur1 = self.con1.cursor()
-        self.cur1.execute("SELECT Name FROM EmployeeSchedule ORDER BY CASE \
-                    WHEN WorkDay = 'Sunday' THEN 1 \
-                    WHEN WorkDay = 'Monday' THEN 2 \
-                    WHEN WorkDay = 'Tuesday' THEN 3 \
-                    WHEN WorkDay = 'Wednesday' THEN 4 \
-                    WHEN WorkDay = 'Thursday' THEN 5 \
-                    WHEN WorkDay = 'Friday' THEN 6 \
-                    WHEN WorkDay = 'Saturday' THEN 7 \
-                    ELSE 8 END;")
+        self.cur1.execute("SELECT Name, WorkDay FROM EmployeeSchedule ORDER BY Name;")
         rows = self.cur1.fetchall()
-        for row in rows:
-            print(row) 
-            self.tree.insert("", tk.END, values=row) 
         self.con1.close()
 
+        # Initialize dictionary
+        schedule = {"Sunday": [], "Monday": [], "Tuesday": [], "Wednesday": [], \
+                    "Thursday": [], "Friday": [], "Saturday": []}
+
+        # Stores name in list in dictionary
+        for name, workDay in rows:
+            if workDay in schedule:
+                schedule[workDay].append(name)
+
+        # Calls add_to_treeview()
+        self.add_to_treeview(self.tree, schedule)
+
+    def add_to_treeview(self, tree, schedule):
+        """
+        Adds names to schedule on the same row
+        """
+        # Initialize variables
+        rows, days = [], ["Sunday", "Monday", "Tuesday", "Wednesday", \
+                          "Thursday", "Friday", "Saturday"]
+        length_max = max(len(names) for names in schedule.values())
+
+        # Adds names to row
+        for i in range(length_max):
+            row = []
+            for day in days:
+                try:
+                    row.append(schedule[day][i])
+                except IndexError:
+                    row.append("")
+            rows.append(tuple(row))
+
+        # Adds row to tree
+        for row in rows:
+            tree.insert("", tk.END, values=row)
 
 class EmployeeInformationWindow(tk.Frame):
     """
     Creates the window for the Employee Information. From this page, managers will be
     able to view all information about their employees. This page is not accessible
-    by all employees. 
+    by all employees.
 
-    Employee information will be displayed in a table. 
+    Employee information will be displayed in a table.
     """
     def __init__(self, parent, controller) -> None:
         """
         Initializer for the employee information window. This initializer creates the look
-        of the frame with all the entries and labels. 
+        of the frame with all the entries and labels.
 
-        Displays the employee information using a table and gets the information from the 
+        Displays the employee information using a table and gets the information from the
         management database.
         """
         super().__init__(parent)
 
-        tk.Label(self, text="Employee Information", 
+        tk.Label(self, text="Employee Information",
                  font=('EuphemiaUCAS 40 bold italic')).pack(pady=10,padx=10)
-        tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'), command=lambda: 
+        tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'), command=lambda:
                   controller.show_frame(HomeWindow)).pack()
-        
-        self.connect() 
+
+        self.connect()
         h = tk.Scrollbar(self, orient='horizontal')
         h.pack(side="bottom", fill='x')
         # Creating the table employee information to display
-        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4", "c5", 
+        self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4", "c5",
                                                "c6", "c7", "c8"), show='headings', xscrollcommand=h.set)
         self.tree.column("#1", anchor=tk.CENTER)
         self.tree.heading("#1", text="Name")
@@ -847,10 +877,10 @@ class EmployeeInformationWindow(tk.Frame):
         self.tree.heading("#8", text="Department")
         self.tree.pack()
         self.add_data()
-        
+
 
         tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
-                  command=lambda: 
+                  command=lambda:
                   controller.show_frame(LoginWindow)).pack()
 
     def connect(self):
@@ -858,7 +888,7 @@ class EmployeeInformationWindow(tk.Frame):
         Create the Employee table in the management database
         """
         db = EmployeeDatabase()
-        
+
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
         con1.close()
@@ -870,12 +900,12 @@ class EmployeeInformationWindow(tk.Frame):
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
         cur1.execute("SELECT * FROM Employees")
-        rows = cur1.fetchall()    
+        rows = cur1.fetchall()
         for row in rows:
-            print(row) 
-            self.tree.insert("", tk.END, values=row)           
+            print(row)
+            self.tree.insert("", tk.END, values=row)
         con1.close()
-    
+
 
 if __name__ == "__main__":
     app = HotelHub()

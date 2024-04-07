@@ -21,6 +21,12 @@ class GuestDatabase:
             SpecialRequests TEXT
         );
         """)
+        cur.execute("INSERT INTO Guests (GuestID, Name, NumberOfGuests, CheckInDate) VALUES \
+                    (1, 'Edna Johnson', 4, '2023-01-23');")
+        cur.execute("INSERT INTO Guests (GuestID, Name, NumberOfGuests, CheckInDate) VALUES \
+                    (2, 'Terrence Earl', 3, '2023-02-23');")
+        cur.execute("INSERT INTO Guests (GuestID, Name, NumberOfGuests, CheckInDate) VALUES \
+                    (3, 'Richard Holmes', 2, '2023-12-23');")
 
         # Commits changes to database
         con.commit()
@@ -93,6 +99,7 @@ class EmployeeSchedule:
             WorkDay TEXT
         );
         """)
+        # Inserts Employee names and working day to table
         cur.execute("INSERT INTO 'EmployeeSchedule' ('Name', 'WorkDay') VALUES \
                     ('Larry Brien', 'Monday');")
         cur.execute("INSERT INTO 'EmployeeSchedule' ('Name', 'WorkDay') VALUES \
@@ -110,6 +117,7 @@ class StockDatabase:
     def __init__(self) -> None:
         con = sqlite3.connect("managementdb.db")
         cur = con.cursor()
+        # Creates table for stock
         cur.execute("""
         CREATE TABLE IF NOT EXISTS Stock (
             PurchaseDate DATE,
@@ -118,6 +126,13 @@ class StockDatabase:
             RoomSetUp INT
         );
         """)
+        # Inserts stock purchases to table
+        cur.execute("INSERT INTO Stock (PurchaseDate, Toiletries, Food, RoomSetUp) VALUES \
+                    ('2023-01-11', 23, 56, 12);")
+        cur.execute("INSERT INTO Stock (PurchaseDate, Toiletries, Food, RoomSetUp) VALUES \
+                    ('2023-02-11', 59, 43, 34);")
+        cur.execute("INSERT INTO Stock (PurchaseDate, Toiletries, Food, RoomSetUp) VALUES \
+                    ('2023-12-11', 39, 87, 27);")
         # Commits changes to database
         con.commit()
         # Closes the cursor and connection
