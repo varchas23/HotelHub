@@ -15,9 +15,21 @@ from tkinter import messagebox
 
 class LoginWindow(tk.Frame):
         """
+        Creates the login window. All users will be able to see this login window
+        and use the following login in order to gain access to the HotelHub application.
+
+        Managers login is: 
+            username: manager
+            password: admin
+
+            Employee login is:
+            username: employee
+            password: 1234
         """
         def __init__(self, parent, controller) -> None:
             """
+            Initializer for the Login Window. This initializer creates the look
+            of the frame with all the entries and labels. 
             """
             super().__init__(parent)
             
@@ -41,6 +53,17 @@ class LoginWindow(tk.Frame):
             tk.Button(self, text="Login", command=self.login).pack(pady=10)
         
         def login(self):
+            """
+            Controls whether the user will gain access to the system. 
+            
+            Managers login is: 
+            username: manager
+            password: admin
+
+            Employee login is:
+            username: employee
+            password: 1234
+            """
             username = self.username_entry.get()
             password = self.password_entry.get()
         
@@ -106,8 +129,6 @@ class HotelHub(tk.Tk):
         frame = self.frames[page_name]
         frame.tkraise()
 
-
-
 class HomeWindow(tk.Frame):
     """
     Creates the main home window for HotelHub. From this window, users can access all
@@ -118,7 +139,10 @@ class HomeWindow(tk.Frame):
     """
     def __init__(self, parent, controller):
         """ 
-        
+        Initializer for the Home Window. This initializer creates the look
+        of the frame with all the entries and labels. 
+
+        All buttons will lead the user to a new page. 
         """
         super().__init__(parent)
         tk.Label(self, text="Home Page", font=('EuphemiaUCAS 40 bold italic')).grid(row=0,column=2)
@@ -143,13 +167,19 @@ class HomeWindow(tk.Frame):
                   controller.show_frame(LoginWindow)).grid(row=9, column=2)
         
 class EmployeeHomeWindow(tk.Frame):
+    """
+    Creates the employee home window for HotelHub. From this window, employees can 
+    access selective windows by selecting the corresponding button. 
+    
+    This page is used as a central navigation page for the user. It should be 
+    accessible from each page that the user is on. 
+    """
     def __init__(self, parent, controller):
         """ 
-        Creates the employee home window for HotelHub. From this window, employees can 
-        access selective windows by selecting the corresponding button. 
-    
-        This page is used as a central navigation page for the user. It should be 
-        accessible from each page that the user is on. 
+        Initializer for the Employee Home Window. This initializer creates the look
+        of the frame with all the entries and labels. 
+
+        All buttons will lead the user to a new page. 
         """
         super().__init__(parent)
         tk.Label(self, text="Home Page").pack(pady=10, padx=10)
@@ -376,6 +406,9 @@ class FinancialWindow(tk.Frame):
         con1.close()
     
     def displayGraph(self, fig1, fig2, fig3):
+        """
+        Display the graphs for the financial window.
+        """
         # Creates frames for each canvas
         frame1 = tk.Frame(self)
         frame1.pack(side="top", fill="both", expand=True)
@@ -398,6 +431,9 @@ class FinancialWindow(tk.Frame):
         canvasExpenditure.get_tk_widget().pack(side="left", fill="both", expand=True)
     
     def plotGraph(self):
+        """
+        Plot graphs for the financial page. 
+        """
         # Creates line graph visualization of incoming guests over a year
         fig1 = plt.figure(figsize=(3, 3))
         plt.plot(self.monthsGuests, self.numGuests, marker='o', color='blue')
@@ -443,6 +479,11 @@ class ToiletriesStockWindow(tk.Frame):
     """
     def __init__(self, parent, controller) -> None:
         """
+        Initializer for the toiletries stock window. This initializer creates the look
+        of the frame with all the entries and labels. 
+
+        Displays the stock using a table and gets the information from the management
+        database.
         """
         super().__init__(parent)
         tk.Label(self, text="Toiletries Stock", 
@@ -509,6 +550,11 @@ class FoodStockWindow(tk.Frame):
     """
     def __init__(self, parent, controller) -> None:
         """
+        Initializer for the food stock window. This initializer creates the look
+        of the frame with all the entries and labels. 
+
+        Displays the stock using a table and gets the information from the management
+        database.
         """
         super().__init__(parent)
         tk.Label(self, text="Food Stock", font=('EuphemiaUCAS 40 bold italic')).pack()
@@ -577,6 +623,11 @@ class RoomSetUpWindow(tk.Frame):
     """
     def __init__(self, parent, controller) -> None:
         """
+        Initializer for the room set up window. This initializer creates the look
+        of the frame with all the entries and labels. 
+
+        Displays the room set up using a table and gets the information from the management
+        database.
         """
         super().__init__(parent)
         tk.Label(self, text="Room Set Up", font=('EuphemiaUCAS 40 bold italic')).pack()
@@ -637,15 +688,19 @@ class RoomSetUpWindow(tk.Frame):
 
 class StockInformationWindow(tk.Frame):
     """
-    Creates the stock information window for HotelHub. From this window, the manager
-    and the employees should be able to view what stock is available on each floor.
-    When there is a low level of stock on a floor the level will be highlighted to 
-    indicate to workers that is re-stock required in that area. 
+    Creates the stock information window for HotelHub. 
+
+    From this window, managers will be able to select which stock information they
+    would like to view. There are buttons to view each stock: toiletries, food, and rooms
+    which require set up.  
     """
 
     def __init__(self, parent, controller) -> None:
         """
+        Initializer for the general stock window. This initializer creates the look
+        of the frame with all the entries and labels. 
 
+        Displays buttons which lead to other stock pages. 
         """
         super().__init__(parent)
         tk.Label(self, text="Stock Information", font=('EuphemiaUCAS 40 bold italic')).pack()
@@ -669,9 +724,19 @@ class StockInformationWindow(tk.Frame):
 
 class EmployeeScheduleWindow(tk.Frame):
     """
+    Creates the window for the Employee Schedule. From this page, employees will be able
+    to view what employee is placed on the schedule for which day of the week. 
+
+    Employee names will be displayed in a table under the respective day they will be 
+    working for that week.
     """
     def __init__(self, parent, controller) -> None:
         """
+        Initializer for the employee schedule window. This initializer creates the look
+        of the frame with all the entries and labels. 
+
+        Displays the employee scheduel using a table and gets the information from the 
+        management database.
         """
         super().__init__(parent)
         tk.Label(self, text="Employee Schedule", 
@@ -737,9 +802,19 @@ class EmployeeScheduleWindow(tk.Frame):
 
 class EmployeeInformationWindow(tk.Frame):
     """
+    Creates the window for the Employee Information. From this page, managers will be
+    able to view all information about their employees. This page is not accessible
+    by all employees. 
+
+    Employee information will be displayed in a table. 
     """
     def __init__(self, parent, controller) -> None:
         """
+        Initializer for the employee information window. This initializer creates the look
+        of the frame with all the entries and labels. 
+
+        Displays the employee information using a table and gets the information from the 
+        management database.
         """
         super().__init__(parent)
 
