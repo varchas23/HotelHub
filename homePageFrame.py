@@ -749,10 +749,11 @@ class EmployeeInformationWindow(tk.Frame):
                   controller.show_frame(HomeWindow)).pack()
         
         self.connect() 
-        
+        h = tk.Scrollbar(self, orient='horizontal')
+        h.pack(side="bottom", fill='x')
         # Creating the table employee information to display
         self.tree = ttk.Treeview(self, column=("c1", "c2", "c3", "c4", "c5", 
-                                               "c6", "c7", "c8"), show='headings')
+                                               "c6", "c7", "c8"), show='headings', xscrollcommand=h.set)
         self.tree.column("#1", anchor=tk.CENTER)
         self.tree.heading("#1", text="Name")
         self.tree.column("#2", anchor=tk.CENTER)
@@ -766,11 +767,13 @@ class EmployeeInformationWindow(tk.Frame):
         self.tree.column("#6", anchor=tk.CENTER)
         self.tree.heading("#6", text="PhoneNumber")
         self.tree.column("#7", anchor=tk.CENTER)
-        self.tree.heading("#7", text="Department")
+        self.tree.heading("#7", text="Emergency Number")
         self.tree.column("#8", anchor=tk.CENTER)
-        self.tree.heading("#8", text="Emergency Number")
+        self.tree.heading("#8", text="Department")
         self.tree.pack()
         self.add_data()
+        
+
         tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
                   command=lambda: 
                   controller.show_frame(LoginWindow)).pack()

@@ -53,7 +53,14 @@ class EmployeeDatabase:
         ('02', 'Stacy Ryan', '2023-10-02', 'ryan4', 'pink34', 'stacyryan@gmail.com', 
          '1234567890', 'Frontdesk', '2945648901'), 
         ('03', 'Joseph Adnan', '2023-10-02', 'adnan3', 'cats46', 'josephadnan@gmail.com',
-          '1234567890', 'Manager', '2945648231')]
+          '1234567890', 'Manager', '2945648231'),
+        ('04', 'Aleksandra Kalas', '2019-11-02', 'kalas4', 'apples3', 'aleksandrakalas@gmail.com',
+          '1234567890', 'Assistant', '2935648231'),
+        ('05', 'Varchas Sharma', '2019-11-02', 'sharma4', 'oranges5', 'varchassharma@gmail.com',
+          '1234567890', 'Assistant', '2935248231'),
+        ('06', 'Dylan Hoote', '2022-08-02', 'hoote4', 'apps3', 'dylanhoote@gmail.com',
+          '1234567890', 'Janitor', '2935648231')
+          ]
         
         for e in employees:
             self.cur.execute("SELECT * FROM Employees WHERE EmployeeID=?", (e[0],))
@@ -88,6 +95,10 @@ class EmployeeSchedule:
         """)
         cur.execute("INSERT INTO 'EmployeeSchedule' ('Name', 'WorkDay') VALUES \
                     ('Larry Brien', 'Monday');")
+        cur.execute("INSERT INTO 'EmployeeSchedule' ('Name', 'WorkDay') VALUES \
+                    ('Stacy Ryan', 'Tuesday');")
+        cur.execute("INSERT INTO 'EmployeeSchedule' ('Name', 'WorkDay') VALUES \
+                    ('Joseph Adnan', 'Friday');")
         # Commits changes to database
         con.commit()
         # Closes the cursor and connection
