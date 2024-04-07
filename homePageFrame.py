@@ -160,6 +160,9 @@ class EmployeeHomeWindow(tk.Frame):
                   command=lambda: controller.show_frame(StockInformationWindow)).pack()
         tk.Button(self, text="Employee Schedule", font=('EuphemiaUCAS 30 bold italic'), 
                   command=lambda: controller.show_frame(EmployeeScheduleWindow)).pack()
+        tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
+                  command=lambda: 
+                  controller.show_frame(LoginWindow)).pack()
 
 class BookingWindow(tk.Frame):
     """
@@ -254,9 +257,14 @@ class BookingWindow(tk.Frame):
         tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic') ,
                   command=lambda: 
                   controller.show_frame(HomeWindow)).grid(row=12)
+        
+        tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
+                  command=lambda: 
+                  controller.show_frame(LoginWindow)).grid(row=13)
     
     def connect(self):
         """
+        Create and connect the GuestDatabase
         """
         db = GuestDatabase()
         
@@ -333,9 +341,13 @@ class FinancialWindow(tk.Frame):
             self.expenditure.append(tup[1])
 
         self.con.close()
+        tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
+                  command=lambda: 
+                  controller.show_frame(LoginWindow)).pack()
     
     def connect(self):
         """
+        Create the Stock table in the management database
         """
         db = StockDatabase()
 
@@ -429,13 +441,19 @@ class ToiletriesStockWindow(tk.Frame):
         self.tree.pack()
         self.add_data()
         tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'),
-                  command=lambda: controller.show_frame(HomeWindow)).pack(side="top", expand=True)
+                  command=lambda: 
+                  controller.show_frame(HomeWindow)).pack(side="top", expand=True)
         tk.Button(self, text="Go Back",font=('EuphemiaUCAS 20 bold italic'),
-                  command=lambda: controller.show_frame(StockInformationWindow)).pack(side="top", expand=True)
+                  command=lambda: 
+                  controller.show_frame(StockInformationWindow)).pack(side="top", 
+                                                                      expand=True)
+        tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
+                  command=lambda: 
+                  controller.show_frame(LoginWindow)).pack()
     
     def connect(self):
         """
-        Create the Employee table in the management database
+        Create the Toiletries stock table in the management database
         """
         db = ToiletriesStockDatabase()
         
@@ -489,15 +507,21 @@ class FoodStockWindow(tk.Frame):
         self.tree.pack()
 
         tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'),
-                  command=lambda: controller.show_frame(HomeWindow)).pack(side="top", expand=True)
+                  command=lambda: controller.show_frame(HomeWindow)).pack(side="top", 
+                                                                          expand=True)
         tk.Button(self, text="Go Back",font=('EuphemiaUCAS 20 bold italic'),
-                  command=lambda: controller.show_frame(StockInformationWindow)).pack(side="top", expand=True)
+                  command=lambda: 
+                  controller.show_frame(StockInformationWindow)).pack(side="top",
+                                                                       expand=True)
+        tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
+                  command=lambda: 
+                  controller.show_frame(LoginWindow)).pack()
         
         self.add_data()
 
     def connect(self):
         """
-        Create the Employee table in the management database
+        Create the Food stock table in the management database
         """
         db = FoodStockDatabase()
         
@@ -553,13 +577,19 @@ class RoomSetUpWindow(tk.Frame):
         self.add_data()
 
         tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'),
-                  command=lambda: controller.show_frame(HomeWindow)).pack(side="top", expand=True)
+                  command=lambda: 
+                  controller.show_frame(HomeWindow)).pack(side="top", expand=True)
         tk.Button(self, text="Go Back",font=('EuphemiaUCAS 20 bold italic'),
-                  command=lambda: controller.show_frame(StockInformationWindow)).pack(side="top", expand=True)
+                  command=lambda: 
+                  controller.show_frame(StockInformationWindow)).pack(side="top",
+                                                                       expand=True)
+        tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
+                  command=lambda: 
+                  controller.show_frame(LoginWindow)).pack()
     
     def connect(self):
         """
-        Create the Employee table in the management database
+        Create the Room setup table in the management database
         """
         db = RoomSetupDatabase()
         
@@ -608,6 +638,9 @@ class StockInformationWindow(tk.Frame):
         
         tk.Button(self, text="Main Menu", font=('EuphemiaUCAS 20 bold italic'), command=lambda: 
                   controller.show_frame(HomeWindow)).pack()
+        tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
+                  command=lambda: 
+                  controller.show_frame(LoginWindow)).pack()
 
 
 class EmployeeScheduleWindow(tk.Frame):
@@ -643,10 +676,13 @@ class EmployeeScheduleWindow(tk.Frame):
         self.tree.heading("#7", text="Saturday")
         self.tree.pack()
         self.getData()
+        tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
+                  command=lambda: 
+                  controller.show_frame(LoginWindow)).pack()
 
     def connect(self):
         """
-        Create the Employee table in the management database
+        Create the Employee schedule table in the management database
         """
         db = EmployeeSchedule()
         
@@ -711,6 +747,9 @@ class EmployeeInformationWindow(tk.Frame):
         self.tree.heading("#8", text="Emergency Number")
         self.tree.pack()
         self.add_data()
+        tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
+                  command=lambda: 
+                  controller.show_frame(LoginWindow)).pack()
 
     def connect(self):
         """
