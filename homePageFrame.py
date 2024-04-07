@@ -251,16 +251,16 @@ class BookingWindow(tk.Frame):
             id_entry.get(), name_entry.get(), address_entry.get(),credit_card_entry.get(),
             num_guests_entry.get(), room_num_entry.get(), bed_entry.get(), 
             checkin_entry.get(), checkout_entry.get(), accomodations_entry.get())
-            ).grid(row=11, column=5)
+            ).grid(row=6, column=8)
 
         # Return to Home Page
         tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic') ,
                   command=lambda: 
-                  controller.show_frame(HomeWindow)).grid(row=12)
+                  controller.show_frame(HomeWindow)).grid(row=0, column=18)
         
         tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
                   command=lambda: 
-                  controller.show_frame(LoginWindow)).grid(row=13)
+                  controller.show_frame(LoginWindow)).grid(row=15, column=5)
     
     def connect(self):
         """
