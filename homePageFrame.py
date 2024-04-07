@@ -302,49 +302,69 @@ class FinancialWindow(tk.Frame):
     """
     def __init__(self, parent, controller) -> None:
         """
+        Initalizer where data gets extracted for use in the line graphs
         """
         super().__init__(parent)
+        # Entries and Labels for Financial Window with Home button
         tk.Label(self, text="Financial Window", 
                  font=('EuphemiaUCAS 40 bold italic')).pack(pady=10,padx=10)
         tk.Button(self, text="Home", font=('EuphemiaUCAS 20 bold italic'),
                   command=lambda: controller.show_frame(HomeWindow)).pack()
         
+        # Calls self.connect() to create stock table
         self.connect()
+        # Connects to database and implements cursor
         self.con = sqlite3.connect("managementdb.db")
         self.cur = self.con.cursor()
 
+        # Initializes variables
         self.monthsGuests, self.numGuests, self.months_income = [], [], []
         self.income, self.months_expenditure, self.expenditure = [], [], []
 
+        # Executes SQL command to extract data from Guests table
         self.cur.execute("SELECT strftime('%m', CheckInDate) AS Month, \
-                         COUNT(GuestID) AS GuestsNumber FROM Guests \
+                         SUM(NumberOfGuests) AS GuestsNumber FROM Guests \
                          GROUP BY strftime('%m', CheckInDate);")
+        # Stores data in variable
         incomingGuests = self.cur.fetchall()
+        # Splits data in two variables
         for tup in incomingGuests:
             self.monthsGuests.append(int(tup[0]))
             self.numGuests.append(tup[1])
 
+        # Executes SQL command to extract data from Guests table
         self.cur.execute("SELECT strftime('%m', CheckInDate) AS Month, \
                          SUM(NumberOfGuests * 80) AS Income FROM Guests \
                          GROUP BY strftime('%m', CheckInDate);")
+        # Stores data in variable
         income_data = self.cur.fetchall()
+        # Splits data in two variables
         for tup in income_data:
             self.months_income.append(int(tup[0]))
             self.income.append(tup[1])
 
+        # Executres SQL command to extract data from Stock table
         self.cur.execute("SELECT strftime('%m', PurchaseDate) AS Month, \
                          SUM(Toiletries + Food + RoomSetUp) AS Expenditure FROM Stock \
                          GROUP BY strftime('%m', PurchaseDate);")
+        # Stores data in variable
         expenditure_data = self.cur.fetchall()
+        # Splits data in two variables
         for tup in expenditure_data:
             self.months_expenditure.append(int(tup[0]))
             self.expenditure.append(tup[1])
 
+        # Closes connection to database
         self.con.close()
+        
+        # Calls plotGraph method
+        self.plotGraph()
+
+        # Logout button
         tk.Button(self,text="Logout", font=('EuphemiaUCAS 30 bold italic'),
                   command=lambda: 
                   controller.show_frame(LoginWindow)).pack()
-    
+
     def connect(self):
         """
         Create the Stock table in the management database
@@ -355,56 +375,60 @@ class FinancialWindow(tk.Frame):
         cur1 = con1.cursor()
         con1.close()
     
-    def displayGraph(fig1, fig2, fig3):
-        """
-        Draws the data visualizations on the Financial Window Page
-        """
-        canvasGuests = FigureCanvasTkAgg(fig1, master=FinancialWindow)
+    def displayGraph(self, fig1, fig2, fig3):
+        # Creates frames for each canvas
+        frame1 = tk.Frame(self)
+        frame1.pack(side="top", fill="both", expand=True)
+        frame2 = tk.Frame(self)
+        frame2.pack(side="top", fill="both", expand=True)
+        frame3 = tk.Frame(self)
+        frame3.pack(side="top", fill="both", expand=True)
+
+        # Packs canvas into frames
+        canvasGuests = FigureCanvasTkAgg(fig1, master=frame1)
         canvasGuests.draw()
-        canvasGuests.get_tk_widget().grid(row=0, column=0)
+        canvasGuests.get_tk_widget().pack(side="left", fill="both", expand=True)
 
-        canvasIncome = FigureCanvasTkAgg(fig2, master=FinancialWindow())
+        canvasIncome = FigureCanvasTkAgg(fig2, master=frame2)
         canvasIncome.draw()
-        canvasIncome.get_tk_widget().grid(row=0, column=1)
+        canvasIncome.get_tk_widget().pack(side="left", fill="both", expand=True)
 
-        canvasExpenditure = FigureCanvasTkAgg(fig3, master=FinancialWindow)
+        canvasExpenditure = FigureCanvasTkAgg(fig3, master=frame3)
         canvasExpenditure.draw()
-        canvasExpenditure.get_tk_widget().grid(row=1, column=0, columnspan=2)
+        canvasExpenditure.get_tk_widget().pack(side="left", fill="both", expand=True)
     
     def plotGraph(self):
         # Creates line graph visualization of incoming guests over a year
-        fig1 = plt.figure(figsize=(10, 5))
-        plt.plot(self.monthsGuests, self.numGuests, marker='orange', color='blue')
+        fig1 = plt.figure(figsize=(3, 3))
+        plt.plot(self.monthsGuests, self.numGuests, marker='o', color='blue')
         plt.title('View of Incoming Guests Over a Year')
         plt.xlabel('Month')
         plt.ylabel('Number of Guests')
         plt.grid(True)
-        plt.xticks(range(1, 13))  # Assuming months are represented as integers from 1 to 12
+        plt.xticks(range(1, 13))
         plt.tight_layout()
-        plt.show()
 
         # Creates line graph visualization of income created each month
-        fig2 = plt.figure(figsize=(10, 5))
-        plt.plot(self.months_income, self.income, marker='orange', color='green')
+        fig2 = plt.figure(figsize=(3, 3))
+        plt.plot(self.months_income, self.income, marker='o', color='green')
         plt.title('View of Income Made Each Month')
         plt.xlabel('Month')
         plt.ylabel('Income ($)')
         plt.grid(True)
-        plt.xticks(range(1, 13))  # Assuming months are represented as integers from 1 to 12
+        plt.xticks(range(1, 13))
         plt.tight_layout()
-        plt.show()
 
         # Creates line graph visualization of purchases for stock each month
-        fig3 = plt.figure(figsize=(10, 5))
-        plt.plot(self.months_expenditure, self.expenditure, marker='orange', color='red')
+        fig3 = plt.figure(figsize=(3, 3))
+        plt.plot(self.months_expenditure, self.expenditure, marker='o', color='red')
         plt.title('Money Spent on Purchases for Stock Each Month')
         plt.xlabel('Month')
         plt.ylabel('Expenditure ($)')
         plt.grid(True)
-        plt.xticks(range(1, 13))  # Assuming months are represented as integers from 1 to 12
+        plt.xticks(range(1, 13))
         plt.tight_layout()
-        plt.show()
 
+        # Calls displayGraph method
         self.displayGraph(fig1, fig2, fig3)
         
 
