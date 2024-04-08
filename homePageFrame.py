@@ -899,7 +899,8 @@ class EmployeeInformationWindow(tk.Frame):
         """
         con1 = sqlite3.connect("managementdb.db")
         cur1 = con1.cursor()
-        cur1.execute("SELECT * FROM Employees")
+        cur1.execute("SELECT Name, JoiningDate, Username, Password, \
+                     Email, PhoneNumber, EmergencyNumber, Department FROM Employees")
         rows = cur1.fetchall()
         for row in rows:
             print(row)
